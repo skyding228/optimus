@@ -1,0 +1,2 @@
+/*! finlog 2016-05-18 09 */
+function doDeposit(){var name=$("#depositMoney").val();mui.$post("/login",{memberId:name},function(data){data.url?window.location.href=data.url:mui.toast("登录失败!")})}mui.init({swipeBack:!0}),$("#depositBtn").on("tap",doDeposit);

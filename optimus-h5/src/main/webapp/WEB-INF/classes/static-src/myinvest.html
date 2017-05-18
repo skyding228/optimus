@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的投资</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/app.css">
+		<link rel="stylesheet" href="css/mui.picker.min.css" />
+		<style>
+			h5 {
+				font-weight: normal;
+				color: #000000;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="investTypeBtn" class="mui-title">投资明细</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-text-center" id="loading">
+				<div class="i-split-line"></div>
+				<span class="mui-spinner" style="position: relative;top: 4px;"></span>
+				<span>正在加载...</span>
+				<div class="i-split-line"></div>
+			</div>
+			<div class="i-split-line"></div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">
+						<span class="i-list-style all"></span>
+						<div class="mui-row" style="margin-right: 20px;">
+							<div class="mui-col-xs-6">
+								<h4 style="margin-bottom: 0;">等待确认</h4>
+							</div>
+							<div class="mui-col-xs-6">
+								<h6 class="mui-text-right i-number"><small>￥</small><span id="notConfirmMoney">0</span></h6>
+							</div>
+						</div>
+					</a>
+					<div class="mui-collapse-content" style="padding-top: 0; padding-left: 0;">
+						<ul class="mui-table-view" style="margin-top: 0px;" id="notConfirmListContainer">
+
+						</ul>
+
+					</div>
+				</li>
+
+			</ul>
+
+			<div class="i-split-line"></div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">
+						<span class="i-list-style all"></span>
+						<div class="mui-row" style="margin-right: 20px;">
+							<div class="mui-col-xs-6">
+								<h4 style="margin-bottom: 0;">收益中</h4>
+							</div>
+							<div class="mui-col-xs-6">
+								<h6 class="mui-text-right i-number"><small>￥</small><span id="confirmMoney">0</span></h6>
+							</div>
+						</div>
+					</a>
+					<div class="mui-collapse-content" style="padding-top: 0; padding-left: 0;">
+						<ul class="mui-table-view" style="margin-top: 0px;" id="confirmListContainer">
+
+						</ul>
+					</div>
+				</li>
+			</ul>
+
+			<div class="i-split-line"></div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">
+						<span class="i-list-style all"></span>
+						<div class="mui-row" style="margin-right: 20px;">
+							<div class="mui-col-xs-6">
+								<h4 style="margin-bottom: 0;">已还款</h4>
+							</div>
+							<div class="mui-col-xs-6">
+								<h6 class="mui-text-right i-number"><small>￥</small><span id="finishMoney">0</span></h6>
+							</div>
+						</div>
+					</a>
+					<div class="mui-collapse-content" style="padding-top: 0; padding-left: 0;">
+						<ul class="mui-table-view" style="margin-top: 0px;" id="finishListContainer">
+
+						</ul>
+					</div>
+				</li>
+			</ul>
+
+		</div>
+
+		<script type="text/template" id="notConfirmTmpl">
+			<li class="mui-table-view-cell">
+				<div class="mui-row ">
+					<div class="mui-col-xs-12">
+						<h5>{subjectName}</h5>
+					</div>
+				</div>
+				<div class="mui-row">
+					<div class="mui-col-xs-12">
+						<small class="i-color-random">交易时间:{bidTimeV}</small>
+					</div>
+				</div>
+				<div class="mui-row">
+					<div class="mui-col-xs-7">
+						<small>投资金额</small>
+						<h5>{amountV}<h5>
+					</div>
+					<div class="mui-col-xs-5">
+						<small>预计收益</small>
+						<h5 style="margin-bottom: 0;">{predictProfitV}</h5>
+					</div>
+				</div>
+				<div class="mui-row">
+					<div class="mui-col-xs-7 ">
+						<small>年化收益率</small>
+						<h5>{rewardRateV}%</h5>
+					</div>
+					<div class="mui-col-xs-5">
+						<small>投资期限</small>
+						<h5 style="margin-bottom: 0;">{loanTerm}</h5>
+					</div>
+				</div>
+			</li>
+			<!--<li class="mui-table-view-cell">-->
+			<!--<a>-->
+			<!--<div>{subjectName}&nbsp;<span class="mui-pull-right">{amountV}</span></div>
+				<small class="i-font-normal">{bidTimeV}{statusV}<span class="mui-pull-right">{predictProfitV}(预计)</span></small>-->
+			<!--</a>-->
+			<!--</li>-->
+		</script>
+		<script type="text/template" id="confirmTmpl">
+			<li class="mui-table-view-cell">
+				<div class="mui-row ">
+					<div class="mui-col-xs-12">
+						<h5>{subjectName}</h5>
+					</div>
+				</div>
+				<div class="mui-row">
+					<div class="mui-col-xs-12">
+						<small class="i-color-random">预计还款日:{predictRepayDateV}</small>
+					</div>
+				</div>
+				<div class="mui-row">
+					<div class="mui-col-xs-7 mui-popup-text">
+						<small>投资金额</small>
+						<h5>{amountV}</h5>
+					</div>
+					<div class="mui-col-xs-5 ">
+						<small>在途收益</small>
+						<h5 style="margin-bottom: 0;">{totalInterestV}</h5>
+					</div>
+				</div>
+				<div class="mui-row">
+					<div class="mui-col-xs-7 ">
+						<small>年化收益率</small>
+						<h5>{rewardRateV}%</h5>
+					</div>
+					<div class="mui-col-xs-5">
+						<small>投资期限</small>
+						<h5 style="margin-bottom: 0;">{loanTerm}</h5>
+					</div>
+				</div>
+				<div class="i-split-line"></div>
+				<div class="mui-row">
+					<div class="mui-col-xs-12">
+						<h5 class="i-a-color" onclick="openContract('{subjectNo}');">合同信息<small>(文件可能较大,建议WiFi环境下查看)</small></h5>
+					</div>
+				</div>
+			</li>
+		</script>
+		<script type="text/template" id="finishTmpl">
+			<li class="mui-table-view-cell">
+				<div class="mui-row ">
+					<div class="mui-col-xs-12">
+						<h5>{subjectName}</h5>
+					</div>
+				</div>
+				<div class="mui-row">
+					<div class="mui-col-xs-12">
+						<small class="i-color-random">还款日:{predictRepayDateV}</small>
+					</div>
+				</div>
+				<div class="mui-row">
+					<div class="mui-col-xs-7 mui-popup-text">
+						<small>投资金额</small>
+						<h5>{totalAmountV}</h5>
+					</div>
+					<div class="mui-col-xs-5 ">
+						<small>收益</small>
+						<h5 style="margin-bottom: 0;">+{totalInterestV}</h5>
+					</div>
+				</div>
+				<div class="mui-row">
+					<div class="mui-col-xs-7 ">
+						<small>年化收益率</small>
+						<h5>{rewardRateV}%</h5>
+					</div>
+					<div class="mui-col-xs-5">
+						<small>投资期限</small>
+						<h5 style="margin-bottom: 0;">{loanTerm}</h5>
+					</div>
+				</div>
+			</li>
+		</script>
+		<script src="js/mui.min.js"></script>
+		<!--<script type="text/javascript" src="js/mui.picker.min.js"></script>-->
+		<script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/myinvest.js"></script>
+	</body>
+
+</html>

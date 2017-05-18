@@ -1,0 +1,26 @@
+{
+  "name": "finlog",
+  "version": "0.2.0",
+  "author": "vfinance",
+  "private": true,
+  "scripts": {
+    "build": "grunt"
+  },
+  "repository": {
+    "type": "svn",
+    "url": "http://weichunhe:1555@svn.vfinance.cn/svn/fujie/src/pmd/inf/apm/finlog/dist/finlog.zip"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-htmlmin": "^1.2.0",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-filerev": "^2.3.1",
+    "grunt-text-replace": "^0.4.0"
+  }
+}

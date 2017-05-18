@@ -1,0 +1,2 @@
+/*! hx 2016-05-17 13 */
+define(["app","config"],function(app,config){app.controller("conditionController",function($scope,$stateParams){function setActiveMenu(url){var $active=null;$(".sidebar-menu li a").each(function(){var $a=$(this);_.startsWith("#"+url,$a.attr("href"))&&($active=$a)}),$active&&($(".sidebar-menu li").removeClass("active"),$active.parent("li").addClass("active"))}$scope.$on(config.EVENTS.ROUTER_CHANGE_SUCCESS,function(){var url=$stateParams.url;setActiveMenu(url)})})});

@@ -1,0 +1,2 @@
+/*! hx 2016-05-17 13 */
+require("app").register.controller("memberAccountController",function($scope,$timeout,$myhttp){$scope.accounts=[],$scope.userId=null,$scope.loading=!1,$scope.pagination={currentPage:1,totalPage:0},$scope.query=function(page){$scope.loading=!0;var param={};param.userId=$scope.userId,param.pageNum=page||1,console.log(param),$myhttp("loading",$scope).get("/account/list",param,function(result){$scope.pagination.currentPage=result.pageIndex,$scope.pagination.totalPage=result.pageCount,$scope.accounts=result.result})},$timeout($scope.query,300)});

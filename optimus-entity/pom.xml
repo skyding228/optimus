@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.netfinworks</groupId>
+        <artifactId>optimus</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>optimus-entity</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.netfinworks</groupId>
+            <artifactId>optimus-mybatis-generator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.netfinworks.common</groupId>
+            <artifactId>netfinworks-common-mysqltools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.netfinworks.common</groupId>
+            <artifactId>netfinworks-common-lang</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>optimus-entity</finalName>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>maven_build/**/*</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+
+
+    <profiles>
+        <profile>
+            <!-- 本地开发环境 -->
+            <id>dev</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!-- 环境配置文件 -->
+                <logDirectory>d:/logs/</logDirectory>
+                <environmentProperties>jdbc.properties</environmentProperties>
+                <!-- 日志文件名(同时被logback.xml引用) -->
+                <logFileName>${project.artifactId}</logFileName>
+            </properties>
+        </profile>
+    </profiles>
+</project>

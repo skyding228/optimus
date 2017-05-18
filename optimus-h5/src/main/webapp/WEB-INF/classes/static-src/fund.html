@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">项目详情</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab" style="z-index: 999;">
+			<div>
+				<div class="mui-pull-left" style="padding:7px 90px 0 5px;position: relative;width: 100%;">
+					<span style="position: absolute;display: inline-block;height: 37px;line-height: 40px;width: 20px;text-align: center;">￥</span>
+					<input type="number" style="padding-left:20px;width: 100%;" placeholder="输入投资金额" id="investMoney" />
+				</div>
+				<div class="mui-pull-right" style="width: 85px;margin-left: -100%;">
+					<button class="mui-btn mui-btn-royal" style="height: 40px;" id="doInvestBtn">立即投资</button>
+				</div>
+			</div>
+		</nav>
+		<div class="mui-content">
+			<div style="background-color: #FFFFFF;">
+
+				<div class="mui-row" style="padding:10px;">
+					<div class="mui-col-xs-6">
+						<h4 class="i-number">4.64%</h4>
+						<br />
+						<h6 style="margin-top: -20px;">七日平均收益率</h6>
+					</div>
+
+					<div class="mui-col-xs-6 ">
+						<h4 style="margin-bottom: 0;">￥1.2060元</h4>
+						<br />
+						<h6 style="margin-top: -12px;">每万元收益</h6>
+					</div>
+
+				</div>
+
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<div class="i-label-row">
+							<label>名称|编号</label>
+							<span>零活宝-14日聚财</span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="i-label-row">
+							<label>起投金额</label>
+							<span>100元</span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="i-label-row">
+							<label>收益起始日</label>
+							<span>T+1(工作日)</span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="i-label-row">
+							<label>收益方式</label>
+							<span>每日结转分配收益,锁定期后可随时赎回,T+1日收益起始计算/赎回到账</span>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="i-label-row">
+							<label>投资人条件</label>
+							<span>风险承受能力"保守型"及以上</span>
+						</div>
+					</li>
+				</ul>
+
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse mui-active">
+						<a class="mui-navigate-right i-color-royal" href="#">项目性质</a>
+						<div class="mui-collapse-content i-font-normal">
+							开放式现金管理类定向委托投资项目,每天24小时开放投资、提取,T+1日收益起始计算/提取到账
+						</div>
+					</li>
+				</ul>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse mui-active">
+						<a class="mui-navigate-right i-color-royal" href="#">收益起始日</a>
+						<div class="mui-collapse-content i-font-normal">
+							委托人在T日(含T-1日15点之后至T日15点以前)提交有效定向委托投资申请,基金公司在T+1日确认,T+1日起计算收益.
+						</div>
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/fund.js"></script>
+
+	</body>
+
+</html>

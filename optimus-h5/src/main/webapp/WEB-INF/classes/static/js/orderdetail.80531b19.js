@@ -1,0 +1,2 @@
+/*! finlog 2016-05-18 09 */
+var productId=mui.$getParam("id");1==productId?($("nav").show(),$("#orderDetailContainer").html($("#fundTmpl").html())):($("nav").hide(),$("#orderDetailContainer").html($("#productTmpl").html()));

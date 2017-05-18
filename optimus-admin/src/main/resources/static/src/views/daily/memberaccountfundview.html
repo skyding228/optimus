@@ -1,0 +1,115 @@
+<!-- 账户变动一览-->
+<ol class="breadcrumb">
+    <li>/<a href="#/daily/memberaccount">会员账户</a></li>
+    <li><a href="#">理财资产详情</a></li>
+</ol>
+<div ng-controller="memberAccountFundViewController">
+    <div class="box box-solid box-default">
+        <div class="box-header with-border">
+            <div class="box-title">筛选条件
+            </div>
+        </div>
+        <div class="box-body query-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-inline">
+                        <label>用户编号</label>
+                        <input type="text" class="form-control" ng-model="userId" placeholder="完整的用户编号"/>
+                    </div>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-primary" ng-click="query();">
+                        查询<i class="fa fa-spin fa-spinner" ng-show="loading"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <div class="box-title">未确认资金:<label class="label label-info">{{view.subjectNotConfirmV}}</label></div>
+        </div>
+        <div class="box-body no-padding">
+            <table class="table table-bordered table-striped v-middle">
+                <tbody>
+                <tr>
+                    <th style="width: 220px;">会员编号</th>
+                    <th style="width: 220px;">用户编号</th>
+                    <th style="width: 220px;">用户名称</th>
+                    <th>金额(元)</th>
+                    <th>交易时间</th>
+                    <th>订单状态</th>
+                    <th>相关产品</th>
+                </tr>
+                <tr ng-repeat="r in view.subjectNotConfirmList">
+                    <td>{{view.member.memberId}}</td>
+                    <td>{{view.member.chanUserId}}</td>
+                    <td>{{view.member.chanUserName}}</td>
+                    <td>{{r.amountV}}</td>
+                    <td>{{r.bidTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{r.statusV}}</td>
+                    <td><a href="#/products/detail?id={{r.subjectNo}}" ng-show="r.subjectNo">{{r.subjectName}}</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <div class="box-title">收益中资金:<label class="label label-success">{{view.subjectConfirmV}}</label></div>
+        </div>
+        <div class="box-body no-padding">
+            <table class="table table-bordered table-striped v-middle">
+                <tbody>
+                <tr>
+                    <th style="width: 220px;">会员编号</th>
+                    <th style="width: 220px;">用户编号</th>
+                    <th style="width: 220px;">用户名称</th>
+                    <th>金额(元)</th>
+                    <th>预计收益</th>
+                    <th>预计还款日</th>
+                    <th>相关产品</th>
+                </tr>
+                <tr ng-repeat="r in view.subjectConfirmList">
+                    <td>{{view.member.memberId}}</td>
+                    <td>{{view.member.chanUserId}}</td>
+                    <td>{{view.member.chanUserName}}</td>
+                    <td>{{r.amountV}}</td>
+                    <td>{{r.totalInterestV}}</td>
+                    <td>{{r.predictRepayDateV}}</td>
+                    <td><a href="#/products/detail?id={{r.subjectNo}}" ng-show="r.subjectNo">{{r.subjectName}}</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <div class="box-title">已完结资金:<label class="label label-warning">{{view.subjectFinishV}}</label></div>
+        </div>
+        <div class="box-body no-padding">
+            <table class="table table-bordered table-striped v-middle">
+                <tbody>
+                <tr>
+                    <th style="width: 220px;">会员编号</th>
+                    <th style="width: 220px;">用户编号</th>
+                    <th style="width: 220px;">用户名称</th>
+                    <th>本金(元)</th>
+                    <th>利息(元)</th>
+                    <th>还款日</th>
+                    <th>相关产品</th>
+                </tr>
+                <tr ng-repeat="r in view.subjectFinishList">
+                    <td>{{view.member.memberId}}</td>
+                    <td>{{view.member.chanUserId}}</td>
+                    <td>{{view.member.chanUserName}}</td>
+                    <td>{{r.totalAmountV}}</td>
+                    <td>{{r.totalInterestV}}</td>
+                    <td>{{r.predictRepayDateV}}</td>
+                    <td><a href="#/products/detail?id={{r.subjectNo}}" ng-show="r.subjectNo">{{r.subjectName}}</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

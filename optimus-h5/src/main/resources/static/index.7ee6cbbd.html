@@ -1,0 +1,62 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>维金理财</title><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="stylesheet" href="css/mui.min.d6cde107.css"><link rel="stylesheet" href="css/app.046c73e2.css"></head><body><nav class="mui-bar mui-bar-tab"><a class="mui-tab-item mui-active" href="index.7ee6cbbd.html"><span class="mui-icon mui-icon-home"></span> <span class="mui-tab-label">首页</span> </a><a class="mui-tab-item" href="products.9dde15ad.html"><span class="mui-icon mui-icon-list"></span> <span class="mui-tab-label">理财</span> </a><a class="mui-tab-item" href="me.d9fd3dd4.html"><span class="mui-icon mui-icon-person-filled"></span> <span class="mui-tab-label">我的</span></a></nav><div id="slider" class="mui-slider"><div class="mui-slider-group mui-slider-loop"><div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="images/yuantiao.2b711ba8.jpg"></a></div><div class="mui-slider-item"><a href="#"><img src="images/shuijiao.58d54e6d.jpg"></a></div><div class="mui-slider-item"><a href="#"><img src="images/muwu.7aea0e5f.jpg"></a></div><div class="mui-slider-item"><a href="#"><img src="images/cbd.2f2a3524.jpg"></a></div><div class="mui-slider-item"><a href="#"><img src="images/yuantiao.2b711ba8.jpg"></a></div><div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="images/shuijiao.58d54e6d.jpg"></a></div></div><div class="mui-slider-indicator"><div class="mui-indicator mui-active"></div><div class="mui-indicator"></div><div class="mui-indicator"></div><div class="mui-indicator"></div></div></div><div class="mui-content"><div class="i-split-line"></div><div id="fundContainer"></div><ul class="mui-table-view"><li class="mui-table-view-cell"><a href="products.9dde15ad.html"><div class="mui-row"><div class="mui-col-xs-6"><h4 style="margin-bottom: 0">理财精选</h4></div><div class="mui-col-xs-6"><h6 class="mui-text-right">更多 >></h6></div></div></a></li></ul><ul class="mui-table-view" id="productContainer"><li class="mui-table-view-cell"><span class="i-list-style"></span> <span class="rotate45" style="background-color: red;color:white;font-size:12px;position: absolute;right: -17px;text-align: center; top: 5px; width: 60px;height: 20px;z-index: 100">热</span> <a><div class="mui-row" style="border-bottom: 1px solid #AAAAAA; padding-bottom: 2px; margin-bottom: 10px"><div class="mui-col-xs-8"><h4 class="mui-ellipsis">无产品可购买</h4></div><div class="mui-col-xs-4"><h6 class="mui-pull-right"></h6></div></div><div style="width: {progressRateV}%" class="mui-row progress-bar"></div><div class="mui-row"><div class="mui-col-xs-4"><p style="" class="i-number">0%</p><br><h6 style="margin-top: -12px">年化收益率</h6></div><div class="mui-col-xs-4 mui-text-center"><h4 style="margin-bottom: 0">0</h4><br><h6 style="margin-top: -12px">期限</h6></div><div class="mui-col-xs-4 mui-text-right"><h4 style="margin-bottom: 0">￥0</h4><br><h6 style="margin-top: -12px">剩余可投</h6></div></div></a><div class="mui-text-center" id="loading"><div class="i-split-line"></div><span class="mui-spinner"></span></div></li></ul></div><script type="text/template" id="producTmpl"><li class="mui-table-view-cell">
+				<span class="i-list-style"></span>
+				<span class="rotate45" style="background-color: red;color:white;font-size:12px;position: absolute;right: -17px;text-align: center; top: 5px; width: 60px;height: 20px;z-index: 9;">热</span>
+				<a href="prd.c407d042.html?subjectNo={subjectNo}">
+					<div class="mui-row" style="border-bottom: 1px solid #AAAAAA; padding-bottom: 2px; margin-bottom: 10px;">
+						<div class="mui-col-xs-10">
+							<h4 class="mui-ellipsis">{subjectName}</h4>
+						</div>
+						<div class="mui-col-xs-2 mui-text-right">
+
+						</div>
+					</div>
+					<div style="width: {progressRateV}%" class="mui-row progress-bar"></div>
+					<div class="mui-row">
+						<div class="mui-col-xs-4">
+							<p style="" class="i-number">{rewardRateV}%</p>
+							<br />
+							<h6 style="margin-top: -12px;">年化收益率</h6>
+						</div>
+
+						<div class="mui-col-xs-3 mui-text-center">
+							<h4 style="margin-bottom: 0;">{loanTerm}</h4>
+							<br />
+							<h6 style="margin-top: -12px;">期限</h6>
+						</div>
+
+						<div class="mui-col-xs-5 mui-text-right">
+							<h4 style="margin-bottom: 0;">￥{biddableAmountV}</h4>
+							<br />
+							<h6 style="margin-top: -12px;">剩余可投</h6>
+						</div>
+					</div>
+				</a>
+			</li></script><script type="text/template" id="fundTmpl"><ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="fund.3917d426.html">
+						<div class="mui-row">
+							<div class="mui-col-xs-6">
+								<h4 style="margin-bottom: 0;">{name}</h4>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="fund.3917d426.html">
+						<div class="mui-row">
+							<div class="mui-col-xs-6">
+								<p style="" class="i-number">4.20%</p>
+								<br />
+								<h6 style="margin-top: -12px;">年化收益率</h6>
+							</div>
+
+							<div class="mui-col-xs-6 mui-text-right">
+								<h4 style="margin-bottom: 0;">￥100</h4>
+								<br />
+								<h6 style="margin-top: -12px;">起投金额</h6>
+							</div>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div class="i-split-line"></div></script><script type="text/javascript" src="js/mui.min.e62f6ab4.js"></script><script type="text/javascript" src="js/app.df0f6172.js"></script><script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script><script type="text/javascript" src="js/index.fab25cec.js"></script></body></html>

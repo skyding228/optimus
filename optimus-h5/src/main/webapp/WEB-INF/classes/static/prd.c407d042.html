@@ -1,0 +1,133 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Hello MUI</title><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="stylesheet" href="css/mui.min.d6cde107.css"><link rel="stylesheet" href="css/app.046c73e2.css"></head><body style="position: relative"><header class="mui-bar mui-bar-nav header"><a class="mui-icon mui-icon-left-nav mui-pull-left" href="products.9dde15ad.html"></a><h1 class="mui-title">产品详情</h1><div id="text"></div><div class="i-split-line"></div></header><nav class="mui-bar mui-bar-tab" style="z-index: 999"><div style="padding-top: 5px"><div class="mui-pull-left" style="padding:7px 110px 0 5px;position: relative;width: 100%"><span style="position: absolute;display: inline-block;height: 37px;line-height: 40px;width: 20px;text-align: center">￥</span> <input type="number" style="padding-left:20px;width: 100%;padding-right: 30px" placeholder="输入投资金额" disabled="disabled" id="investMoney"> <span style="position: absolute;right: 120px;top:17px">+<span class="i-number" id="profitMoney">0</span></span></div><div class="mui-pull-right" style="width: 105px;margin-left: -100%;padding-right: 3px"><button class="mui-btn mui-btn-royal" disabled="disabled" id="doInvestBtn" style="height: 40px;width: 100%">立即投资<span class="mui-spinner" id="loading" style="width: 14px;height: 14px;display: none"></span></button></div></div></nav><div class="mui-content"><div class="mui-text-center" id="loading"><div class="i-split-line"></div><span class="mui-spinner" style="position: relative;top: 4px"></span> <span>正在加载...</span></div></div><script type="text/template" id="headerTmpl"><div class="mui-text-center" style="padding: 10px;padding-top: 54px;">
+				<h6>预计年化收益率</h6>
+				<div class="i-split-line"></div>
+				<h1 class="i-number" style="font-size: 36px;">{rewardRateV}<small style="font-size: 12px;">%</small></h1>
+			</div>
+			<div class="mui-row" style="padding:0 10px;">
+				<div class="mui-col-xs-4">
+					<h4 style="margin-bottom: 0;">{bidMinAmountV}</h4>
+					<br />
+					<h6 style="margin-top: -12px;">起投金额(元)</h6>
+				</div>
+				<div class="mui-col-xs-3 mui-text-center">
+					<h4 style="margin-bottom: 0;">{bidUnitV}</h4>
+					<br />
+					<h6 style="margin-top: -12px;">投资步长(元)</h6>
+				</div>
+				<div class="mui-col-xs-5 mui-text-right">
+					<h4 style="margin-bottom: 0;">{biddableAmountV}</h4>
+					<br />
+					<h6 style="margin-top: -12px;">剩余金额(元)</h6>
+				</div>
+			</div>
+			<div class="i-split-line"></div></script><script type="text/template" id="prdTmpl"><div style="background-color: #FFFFFF;">
+				<!--<div class="mui-text-center" style="padding: 10px;">
+					<span class="mui-badge mui-badge-royal" style="font-size: 30px;height: 100px;width:100px;line-height: 95px;"> {rewardRateV}<small style="font-size: 12px;">%</small></span>
+				</div>
+				<div class="mui-row" style="padding:0 10px;">
+					<div class="mui-col-xs-4">
+						<h4 style="margin-bottom: 0;">{bidMinAmountV}</h4>
+						<br />
+						<h6 style="margin-top: -12px;">起投金额(元)</h6>
+					</div>
+					<div class="mui-col-xs-4 mui-text-center">
+						<h4 style="margin-bottom: 0;">{bidUnitV}</h4>
+						<br />
+						<h6 style="margin-top: -12px;">投资步长(元)</h6>
+					</div>
+					<div class="mui-col-xs-4 mui-text-right">
+						<h4 style="margin-bottom: 0;">{biddableAmountV}</h4>
+						<br />
+						<h6 style="margin-top: -12px;">剩余金额(元)</h6>
+					</div>
+				</div>
+				<div class="i-split-line"></div>-->
+				<div style="padding: 0 1px;margin-top: 175px;">
+					<div id="segmentedControl" class="mui-segmented-control">
+						<a class="mui-control-item mui-active" href="#prdDetails">
+							产品详情
+						</a>
+						<a class="mui-control-item" href="#investHis">
+							投资记录
+						</a>
+					</div>
+
+				</div>
+				<div>
+					<div id="prdDetails" class="mui-control-content mui-active">
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell">
+								<a>产品名称
+								<i class="mui-pull-right i-font-normal">{subjectName}</i>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-collapse">
+								<a class="mui-navigate-right" href="#" style="padding-right: 40px;">还款方式
+								<i class="mui-pull-right i-font-normal">{repayTypeV}</i>
+								</a>
+								<div class="mui-collapse-content">
+									<small>本金和收益在还款日一次性发放至余额;</small>
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<a>项目总额(元)
+								<i class="mui-pull-right i-font-normal">{applyAmountV}</i>
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a>融资进度
+								<i class="mui-pull-right i-font-normal">{progressRateV}%</i>
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a>当前状态
+								<i class="mui-pull-right i-font-normal">{statusV}</i>
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a>投资开始日
+								<i class="mui-pull-right i-font-normal">{bidBeginDateV}</i>
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a>投资截止日
+								<i class="mui-pull-right i-font-normal">{validDateV}</i>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-collapse">
+								<a class="mui-navigate-right" style="padding-right: 40px;">投资期限
+								<i class="mui-pull-right i-font-normal">{loanTerm}</i>
+								</a>
+								<div class="mui-collapse-content">
+									<small>自产品成立日算起;产品会在满标后成立,或者投资截止日后流标;流标后投资金额退还至余额;</small>
+								</div>
+							</li>
+							<li class="mui-table-view-cell mui-collapse mui-active">
+								<a class="mui-navigate-right" href="#" style="padding-right: 40px;">产品详细信息
+								</a>
+								<div class="mui-collapse-content">
+									<small>{description}</small>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div id="investHis" class="mui-control-content">
+						<h5 class="mui-text-right" style="padding: 5px;">最近10条投资记录</h5>
+						<ul class="mui-table-view" id="investOrdersContainer">
+							<li class="mui-table-view-cell">
+								<div class="mui-row mui-text-center">
+									<div class="mui-col-xs-4"><strong>投资人</strong></div>
+									<div class="mui-col-xs-4"><strong>投资金额</strong></div>
+									<div class="mui-col-xs-4"><strong>投资时间</strong></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div></script><script type="text/template" id="investOrderTmpl"><li class="mui-table-view-cell">
+				<div class="mui-row mui-text-center i-font-normal">
+					<div class="mui-col-xs-4 ">{userNameV}</div>
+					<div class="mui-col-xs-4">{amountV}</div>
+					<div class="mui-col-xs-4">{bidTimeV}</div>
+				</div>
+			</li></script><script src="js/mui.min.e62f6ab4.js"></script><script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script><script type="text/javascript" src="js/app.df0f6172.js"></script><script type="text/javascript" src="js/prd.ce9d11dc.js"></script></body></html>

@@ -1,0 +1,458 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>使用手册.md</title>
+<!--mark |wiz_custom_css| for wizeditor replace it-->
+
+
+<style id="wiz_custom_css">
+html, body {
+	font-size: 15px;
+}
+
+body {
+	font-family: Helvetica, 'Hiragino Sans GB', '微软雅黑', 'Microsoft YaHei UI',
+		SimSun, SimHei, arial, sans-serif;
+	line-height: 1.6;
+	margin: 0;
+	padding: 20px 36px;
+	padding: 1.33rem 2.4rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 20px 0 10px;
+	margin: 1.33rem 0 0.667rem;
+	padding: 0;
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 21px;
+	font-size: 1.4rem;
+}
+
+h2 {
+	font-size: 20px;
+	font-size: 1.33rem;
+}
+
+h3 {
+	font-size: 18px;
+	font-size: 1.2rem;
+}
+
+h4 {
+	font-size: 17px;
+	font-size: 1.13rem;
+}
+
+h5 {
+	font-size: 15px;
+	font-size: 1rem;
+}
+
+h6 {
+	font-size: 15px;
+	font-size: 1rem;
+	color: #777777;
+	margin: 1rem 0;
+}
+
+div, p, ul, ol, dl, li {
+	margin: 0;
+}
+
+blockquote, table, pre, code {
+	margin: 8px 0;
+}
+
+ul, ol {
+	padding-left: 32px;
+	padding-left: 2.13rem;
+}
+
+blockquote {
+	padding: 0 12px;
+	padding: 0 0.8rem;
+}
+
+blockquote>:first-child {
+	margin-top: 0;
+}
+
+blockquote>:last-child {
+	margin-bottom: 0;
+}
+
+img {
+	border: 0;
+	max-width: 100%;
+	height: auto !important;
+	margin: 2px 0;
+}
+
+table {
+	border-collapse: collapse;
+	border: 1px solid #bbbbbb;
+}
+
+td {
+	padding: 4px 8px;
+	border-collapse: collapse;
+	border: 1px solid #bbbbbb;
+}
+
+@media screen and (max-width: 660px) {
+	body {
+		padding: 20px 18px;
+		padding: 1.33rem 1.2rem;
+	}
+}
+
+@media only screen and (-webkit-max-device-width: 1024px) , only screen and
+		(-o-max-device-width: 1024px) , only screen and (max-device-width:
+		1024px) , only screen and (-webkit-min-device-pixel-ratio: 3) , only
+		screen and (-o-min-device-pixel-ratio: 3) , only screen and
+	(min-device-pixel-ratio: 3) {
+	html, body {
+		font-size: 17px;
+	}
+	body {
+		line-height: 1.7;
+		padding: 0.75rem 0.9375rem;
+		color: #353c47;
+	}
+	h1 {
+		font-size: 2.125rem;
+	}
+	h2 {
+		font-size: 1.875rem;
+	}
+	h3 {
+		font-size: 1.625rem;
+	}
+	h4 {
+		font-size: 1.375rem;
+	}
+	h5 {
+		font-size: 1.125rem;
+	}
+	h6 {
+		color: inherit;
+	}
+	ul, ol {
+		padding-left: 2.5rem;
+	}
+	blockquote {
+		padding: 0 0.9375rem;
+	}
+}
+</style>
+<style type="text/css" id="wiz_todo_style_id"
+	wiz_link_version="01.00.09">
+.wiz-todo, .wiz-todo-img {
+	width: 16px;
+	height: 16px;
+	cursor: default;
+	padding: 0 10px 0 2px;
+	vertical-align: -10%;
+	-webkit-user-select: none;
+}
+
+.wiz-todo-label {
+	display: inline-block;
+	padding-top: 7px;
+	padding-bottom: 6px;
+	line-height: 1.5;
+}
+
+.wiz-todo-label-checked {
+	color: #666;
+}
+
+.wiz-todo-label-unchecked {
+	text-decoration: initial;
+}
+
+.wiz-todo-completed-info {
+	padding-left: 44px;
+	display: inline-block;
+}
+
+.wiz-todo-avatar {
+	width: 20px;
+	height: 20px;
+	vertical-align: -20%;
+	margin-right: 10px;
+	border-radius: 2px;
+}
+
+.wiz-todo-account, .wiz-todo-dt {
+	color: #666;
+}
+</style>
+<link rel="stylesheet" href="../css/github2.css" charset="utf-8">
+<link rel="stylesheet" href="../css/wizToc.css" charset="utf-8">
+</head>
+
+<body style="" class="markdown-body">
+	<p>
+	<div class="wiz_toc_layer">
+		<a class="wiz_toc h1" href="#wiz_toc_0">定义</a><br> <a
+			class="wiz_toc h1" href="#wiz_toc_1">出入款说明</a><br> <a
+			class="wiz_toc h1" href="#wiz_toc_2">项目运行流程</a><br> <a
+			class="wiz_toc h1" href="#wiz_toc_3">操作手册</a><br> <a
+			class="wiz_toc h2" href="#wiz_toc_4">产品管理</a><br> <a
+			class="wiz_toc h3" href="#wiz_toc_5">货币基金管理</a><br> <a
+			class="wiz_toc h3" href="#wiz_toc_6">货基交易记录</a><br> <a
+			class="wiz_toc h3" href="#wiz_toc_7">货基收益详情</a><br> <a
+			class="wiz_toc h3" href="#wiz_toc_8">定期产品管理</a><br> <a
+			class="wiz_toc h4" href="#wiz_toc_9">基本信息</a><br> <a
+			class="wiz_toc h4" href="#wiz_toc_10">申购记录</a><br> <a
+			class="wiz_toc h4" href="#wiz_toc_11">还款记录</a><br> <a
+			class="wiz_toc h2" href="#wiz_toc_12">日常管理</a><br> <a
+			class="wiz_toc h3" href="#wiz_toc_13">待出入款管理</a><br> <a
+			class="wiz_toc h3" href="#wiz_toc_14">账户操作</a><br> <a
+			class="wiz_toc h3" href="#wiz_toc_15">账户变动一览</a><br> <a
+			class="wiz_toc h3" href="#wiz_toc_16">审核</a><br> <a
+			class="wiz_toc h1" href="#wiz_toc_17">常用操作</a><br> <a
+			class="wiz_toc h2" href="#wiz_toc_18">如何对产品上下架？</a><br> <a
+			class="wiz_toc h2" href="#wiz_toc_19">出入款操作</a><br> <a
+			class="wiz_toc h2" href="#wiz_toc_20">审核</a>
+	</div>
+	<a href="#wizToc"></a>
+	</p>
+
+	<h2 id="wiz_toc_0">定义</h2>
+
+	<ul>
+		<li><strong>A方</strong>: 上海富捷信息技术有限公司</li>
+		<li><strong>B方</strong>: 福建国通星驿网络科技有限公司</li>
+		<li><strong>借款人</strong>: 标的申请人</li>
+		<li><strong>A方账户</strong>: B方提供的供A方操作的共管账户</li>
+		<li><strong>B方账户</strong>: B方的实际银行账户</li>
+		<li><strong>本系统</strong>: B方用于日常运营的后台管理系统，用户名密码由A方提供</li>
+	</ul>
+
+	<h2 id="wiz_toc_1">出入款说明</h2>
+
+	<ul>
+		<li><strong>出款</strong>: 从A方账户转账到借款人账户</li>
+		<li><strong>入款</strong>: 借款人转账到A方账户</li>
+		<li><strong>渠道出款</strong>: 从B方账户转账到A方账户</li>
+		<li><strong>渠道入款</strong>: 从A方账户转账到B方账户</li>
+		<li><strong>出入款条目</strong>:
+			A方出款包括产品的放款、基金申购、账户提现，入款包括产品的还款基金的赎回；B方目前只有一种出款类型，就是账户充值;</li>
+	</ul>
+
+	<h2 id="wiz_toc_2">项目运行流程</h2>
+
+	<ol>
+		<li>B方提供理财产品，在A方理财平台后台系统上线、审核</li>
+		<li>B方在本系统中的<a href="../../index#/products">定期产品管理</a>对通过A方审核的理财产品进行上架
+		</li>
+		<li>B方会员在APP中充值、购买</li>
+		<li>产品满标后，B方需要发起一笔<strong>渠道出款</strong>操作，然后根据转账凭证号，在本系统中的 <a
+			href="../../index#/daily/payment">待出入款管理</a> 发起渠道出款申请，A方会根据凭证号进行审核
+		</li>
+		<li>A方通过审核后，会发起一笔<strong>出款</strong>操作，然后根据转账凭证号，通过A方后台系统发起出款申请，B方在本系统中的
+			<a href="../../index#/daily/audit">审核</a> 进行审核
+		</li>
+		<li>等待投资期限结束</li>
+		<li>借款人还款到A方账户,A方根据借款人的还款凭证号，发起入款申请，B方在本系统中的 <a
+			href="../../index#/daily/audit">审核</a> 进行审核
+		</li>
+		<li>B方可发起一笔<strong>渠道入款</strong>操作，然后根据转账凭证号，在本系统中的 <a
+			href="../../index#/daily/payment">待出入款管理</a> 发起渠道入款申请，A方会根据转账凭证号进行审核
+		</li>
+		<li>一个理财产品的生命周期到此结束</li>
+	</ol>
+
+	<h2 id="wiz_toc_3">操作手册</h2>
+
+	<p>
+		<img src="index_files/50e5cad0-3aa1-4e97-9f67-b12236f8e3d4.png" alt="">
+	</p>
+
+	<h3 id="wiz_toc_4">产品管理</h3>
+
+	<h4 id="wiz_toc_5">
+		<a href="../../index#/fund/mgt">货币基金管理</a>
+	</h4>
+
+	<p>
+		<img src="index_files/579aef33-6f0a-496a-af8c-353e6a5349f7.png" alt="">
+		<br> <strong>说明</strong>: <br> 配置货币基金相关信息；
+	</p>
+
+	<ul>
+		<li>编号、名称: 由基金公司确定的，要确保准确无误</li>
+		<li>起投金额：用户能购买的最小金额，</li>
+		<li>七日年化收益率、每万份收益：这些随着日期而变化的，运营人员需要每天登陆基金公司官网查看并录入；如果为0，基金详情页面将不显示这些信息</li>
+		<li>开放购买：只有开放购买了，投资用户才能看到并进行申购；否则投资用户看不到基金信息</li>
+	</ul>
+
+	<h4 id="wiz_toc_6">
+		<a href="../../index#/fund/trade">货基交易记录</a>
+	</h4>
+
+	<p>
+		<img src="index_files/2127fd39-6a25-4ac2-8add-6c5555dda3b8.png" alt="">
+		<br> <strong>说明</strong>： <br>
+		根据查询条件查询响应的申购赎回记录；默认查询最近一天的所有用户的交易记录；
+	</p>
+
+	<ul>
+		<li>用户信息：输入完整的用户编号或者名称进行查询单个用户的交易记录</li>
+		<li>交易类型：申购或者赎回</li>
+		<li>交易时间：查询对应时间段内的交易记录</li>
+	</ul>
+
+	<h4 id="wiz_toc_7">
+		<a href="../../index#/fund/profit">货基收益详情</a>
+	</h4>
+
+	<p>
+		<img src="index_files/78954510-39c8-447a-9a85-fcaa879c251d.png" alt="">
+	</p>
+
+	<p>
+		<strong>说明</strong>: <br> 根据不同条件， 查看货币基金的收益信息；
+	</p>
+
+	<ul>
+		<li>用户信息：输入完整的用户编号或者名称，查看单个用户的收益信息</li>
+		<li>收益状态：发放成功或者失败, 如果存在发放失败的记录，应该是系统出现了异常</li>
+		<li>收益日：查看单个收益日的收益信息</li>
+	</ul>
+
+	<h4 id="wiz_toc_8">
+		<a href="../../index#/products">定期产品管理</a>
+	</h4>
+
+	<p>
+		<img src="index_files/14e626bf-2cd8-4cdf-b865-97a5621063f5.png" alt="">
+		<br> <strong>说明</strong>： <br>
+		对固定期限的理财产品进行上下架管理，及详情、投资、还款等信息查看
+	</p>
+
+	<ul>
+		<li>产品状态：未上架表示投资用户看不到此产品，已上架是等待产品处于招标中时，投资用户可以进行投资；
+			已开售即招标中，已满标即已售罄，还款中即产品进入投资期，等待到期后借款人还款，已完结即此产品的生命周期已结束，投资人也已经收到本息还款；</li>
+		<li>点击对应产品中的 【详情】 按钮 查看对应产品的详细信息</li>
+	</ul>
+
+	<h5 id="wiz_toc_9">基本信息</h5>
+
+	<p>
+		产品相关的基本信息 <br> <img
+			src="index_files/a29a6fc0-1c0e-413a-979b-eb2cda3229a1.png" alt="">
+	</p>
+
+	<h5 id="wiz_toc_10">申购记录</h5>
+
+	<p>
+		查看投资人的投资记录 <br> <img
+			src="index_files/31d052eb-95d6-493e-af12-10a3c02e4e97.png" alt="">
+	</p>
+
+	<h5 id="wiz_toc_11">还款记录</h5>
+
+	<p>
+		已完结的产品，可以看到对应的还款信息； <br> <img
+			src="index_files/e571152d-0be9-4c9e-a1c0-05664d0107d7.png" alt="">
+	</p>
+
+	<h3 id="wiz_toc_12">日常管理</h3>
+
+	<p>运营人员需要经常操作的功能；</p>
+
+	<h4 id="wiz_toc_13">
+		<a href="../../index#/daily/payment">待出入款管理</a>
+	</h4>
+
+	<p>
+		<img src="index_files/3a479778-ba8e-41d0-bc65-d696b8b2a73e.png" alt="">
+		<br> <strong>说明</strong>: <br>
+		出入款就是需要A方、B方、产品方之间进行资金流动的操作；当产品放款、基金申购时需要A方进行出款操作，当产品到期还款、基金赎回时需要A方进行入款操作；这里只是记录资金信息流，不会对实际银行账户进行转账操作；
+		<br> 目前B方只有一种出款类型就是账户充值; <br>
+		可以对多个记录进行合并后进行出入款操作；勾选响应的出入款记录后，【生成待执行记录】
+	</p>
+
+	<h4 id="wiz_toc_14">
+		<a href="../../index#/daily/accountchange">账户操作</a>
+	</h4>
+
+	<p>
+		<img src="index_files/fe11aea2-8e3d-49fc-ae24-a28fe62b015e.png" alt="">
+		<br> <strong>说明</strong>： <br>
+		先执行实际银行账户之间转账，根据交易凭证号在这里发起出入款申请，等待对方审核; 大多数情况下是先在 <a
+			href="../../index#/daily/payment">待出入款管理</a>生成待出入款记录，然后在这里选择一条记录进行执行，只有账户出现异常时才会不关联具体产品进行出入款操作;
+		<br> 这里的出款、入款是相对于B方银行账户来说的，即渠道出入款；出款即B方向A方账户转账，入款即从A方账户中转账到B方账户；
+	</p>
+
+	<ul>
+		<li>备注：说明信息</li>
+		<li>凭证号：银行转账时的交易凭证号，审核时的主要参考依据</li>
+	</ul>
+
+	<h4 id="wiz_toc_15">
+		<a href="../../index#/daily/accountview">账户变动一览</a>
+	</h4>
+
+	<p>
+		<img src="index_files/8564e879-68d0-4f89-9ad1-1189286d050d.png" alt="">
+		<br> <strong>说明</strong>： <br> 这里看到的账户是A方账户变动一览；<a
+			href="../../index#/daily/accountchange">账户操作</a>中的出入款到这里就是渠道出入款了；这里的出款是A方账户转账到借款人账户，入款是借款人还款；
+	</p>
+
+	<h4 id="wiz_toc_16">
+		<a href="../../index#/daily/audit">审核</a>
+	</h4>
+
+	<p>
+		<img src="index_files/6dab69fc-ab80-4a03-b8fb-40867655e32d.png" alt="">
+		<br> <strong>说明</strong>： <br>
+		审核主要依据交易凭证号查看账户交易信息，如果正确无误就通过，否则就驳回，并联系对方，查看是否出现什么操作失误!
+	</p>
+
+	<h2 id="wiz_toc_17">常用操作</h2>
+
+	<h3 id="wiz_toc_18">如何对产品上下架？</h3>
+
+	<p>
+		基金在<a href="../../index#/fund/mgt">货币基金管理</a>中管理是否开放购买，这里的开发购买操作是让用户能否看到此基金产品；
+	</p>
+
+	<p>
+		定期产品在<a href="../../index#/products">定期产品管理</a>中进行上下架，未上架的产品用户看不到，即无法投资；
+	</p>
+
+	<h3 id="wiz_toc_19">出入款操作</h3>
+
+	<p>本系统中的出入款操作只是信息流，用以记录、对账等;
+		不会进行实际银行账户的操作，运营人员需要对银行账户进行实际操作之后拿着交易凭证号在本系统中发起出入款申请;</p>
+
+	<p>
+		运营人员需要每天查看本系统中的<a href="../../index#/daily/payment">待出入款管理</a>是否有需要出入款的条目;
+		产品满标后放款及基金申购要做出款操作，产品还款及基金赎回要做入款操作，可以多个条目合并生成一个待执行记录，将合并后的轧差额进行账户操作;
+	</p>
+
+	<p>
+		在<a href="../../index#/daily/accountchange">账户操作</a>中选择一条待执行记录进行出入款操作；如果没有待执行记录通常是不需要进行账户操作的，只有账户出现异常时需要；
+	</p>
+
+	<p>进行账户操作后，就等待对方审核,对方审核通过后出入款操作就完成了；</p>
+
+	<p>
+		<strong>基金的申购需要在1点之前进行操作，因为A方要审核后去基金公司申购</strong>
+	</p>
+
+	<h3 id="wiz_toc_20">审核</h3>
+
+	<p>主要根据交易凭证号去查看实际银行账户中是否存在此交易,金额是否正确，此金额对应的出入款条目是否正确;
+		如果正确就审批通过,如果不正确就驳回，联系对方运营人员，让其核对后重新发起操作；</p>
+</body>
+</html>

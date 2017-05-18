@@ -1,0 +1,85 @@
+<ol class="breadcrumb">
+    <li>/<a>定期产品</a></li>
+</ol>
+<div ng-controller="productsController">
+    <div class="box box-solid box-default">
+        <div class="box-header with-border">
+            <div class="box-title">查询产品</div>
+        </div>
+        <div class="box-body query-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-inline">
+                        <label>产品状态: </label>
+                        <select class="form-control" ng-model="status">
+                            <option ng-repeat="s in statuses" value="{{s.value}}" ng-selected="s.value==status">
+                                {{s.text}}
+                            </option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-form" ng-click="query();">查询 <i class="fa fa-spinner fa-spin"
+                                                                                       ng-show="loading"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row ng-hide">
+                <div class="col-md-6">
+                    <div class="form-group form-group-inline">
+                        <label>产品类型: </label>
+
+                        <select class="form-control" ng-model="type">
+                            <option ng-repeat="s in types" value="{{s.value}}" ng-selected="s.value==status">
+                                {{s.text}}
+                            </option>
+                        </select>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="background-color: #FFFFFF;">
+        <div class="text-right">
+            <label>上下架说明:</label>
+            <span>上架表示此产品在移动端可进行购买,下架表示此产品在移动端不可见;只有在满标之前的产品才能上下架</span>
+        </div>
+        <div class="split-space"></div>
+        <table class="table table-bordered table-striped v-middle table-hover">
+            <tbody>
+            <tr>
+                <th style="width: 220px;">编号</th>
+                <th>名称</th>
+                <th>开投日期</th>
+                <th>状态</th>
+                <th>总金额</th>
+                <th>年化收益率(%)</th>
+                <th>投资进度(%)</th>
+                <th>投资期限</th>
+                <th>操作</th>
+            </tr>
+            <tr ng-repeat="prd in products">
+                <td>{{prd.subjectNo}}</td>
+                <td>{{prd.subjectName}}</td>
+                <td>{{prd.bidBeginTime | date:'yyyy-MM-dd'}}</td>
+                <td>{{prd.statusV}}</td>
+                <td>{{prd.applyAmountV}}</td>
+                <td>{{prd.rewardRateV}}</td>
+                <td>{{prd.progressRate}}</td>
+                <td>{{prd.loanTerm}}</td>
+                <td>
+                    <a href="#/products/detail?id={{prd.subjectNo}}" class="btn btn-plain">详情</a>
+                    <button class="btn {{prd.btnClass}}" ng-show="prd.canEdit" ng-click="shelves(prd);">
+                        {{prd.btnText}}<i class="fa fa-spin fa-spinner" ng-show="shelvesLoading[prd.subjectNo]"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <pagination total-page="pagination.totalPage" current-page="pagination.currentPage"
+                on-select-page="pagination.onSelect(page);"></pagination>
+
+</div>

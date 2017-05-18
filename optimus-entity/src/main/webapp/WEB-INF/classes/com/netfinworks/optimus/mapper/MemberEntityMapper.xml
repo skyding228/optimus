@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.netfinworks.optimus.mapper.MemberEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.netfinworks.optimus.entity.MemberEntity" >
+    <id column="member_id" property="memberId" jdbcType="VARCHAR" />
+    <result column="chan_id" property="chanId" jdbcType="VARCHAR" />
+    <result column="chan_user_id" property="chanUserId" jdbcType="VARCHAR" />
+    <result column="chan_user_name" property="chanUserName" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="pay_passwd" property="payPasswd" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="lock_time" property="lockTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="chan_user_realname" property="chanUserRealname" jdbcType="VARCHAR" />
+    <result column="chan_user_id_number" property="chanUserIdNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    member_id, chan_id, chan_user_id, chan_user_name, mobile, account_id, pay_passwd, 
+    create_time, update_time, status, lock_time, type, chan_user_realname, chan_user_id_number
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.netfinworks.optimus.entity.MemberEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0" >
+      limit #{limitStart}, #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_member
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.netfinworks.optimus.entity.MemberEntityExample" >
+    delete from t_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.netfinworks.optimus.entity.MemberEntity" >
+    insert into t_member (member_id, chan_id, chan_user_id, 
+      chan_user_name, mobile, account_id, 
+      pay_passwd, create_time, update_time, 
+      status, lock_time, type, 
+      chan_user_realname, chan_user_id_number)
+    values (#{memberId,jdbcType=VARCHAR}, #{chanId,jdbcType=VARCHAR}, #{chanUserId,jdbcType=VARCHAR}, 
+      #{chanUserName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
+      #{payPasswd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{lockTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, 
+      #{chanUserRealname,jdbcType=VARCHAR}, #{chanUserIdNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.netfinworks.optimus.entity.MemberEntity" >
+    insert into t_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="chanId != null" >
+        chan_id,
+      </if>
+      <if test="chanUserId != null" >
+        chan_user_id,
+      </if>
+      <if test="chanUserName != null" >
+        chan_user_name,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="payPasswd != null" >
+        pay_passwd,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="lockTime != null" >
+        lock_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="chanUserRealname != null" >
+        chan_user_realname,
+      </if>
+      <if test="chanUserIdNumber != null" >
+        chan_user_id_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="chanId != null" >
+        #{chanId,jdbcType=VARCHAR},
+      </if>
+      <if test="chanUserId != null" >
+        #{chanUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="chanUserName != null" >
+        #{chanUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="payPasswd != null" >
+        #{payPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="lockTime != null" >
+        #{lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="chanUserRealname != null" >
+        #{chanUserRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="chanUserIdNumber != null" >
+        #{chanUserIdNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.netfinworks.optimus.entity.MemberEntityExample" resultType="java.lang.Integer" >
+    select count(*) from t_member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_member
+    <set >
+      <if test="record.memberId != null" >
+        member_id = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chanId != null" >
+        chan_id = #{record.chanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chanUserId != null" >
+        chan_user_id = #{record.chanUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chanUserName != null" >
+        chan_user_name = #{record.chanUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountId != null" >
+        account_id = #{record.accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payPasswd != null" >
+        pay_passwd = #{record.payPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lockTime != null" >
+        lock_time = #{record.lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chanUserRealname != null" >
+        chan_user_realname = #{record.chanUserRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chanUserIdNumber != null" >
+        chan_user_id_number = #{record.chanUserIdNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_member
+    set member_id = #{record.memberId,jdbcType=VARCHAR},
+      chan_id = #{record.chanId,jdbcType=VARCHAR},
+      chan_user_id = #{record.chanUserId,jdbcType=VARCHAR},
+      chan_user_name = #{record.chanUserName,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      account_id = #{record.accountId,jdbcType=VARCHAR},
+      pay_passwd = #{record.payPasswd,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=VARCHAR},
+      lock_time = #{record.lockTime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=VARCHAR},
+      chan_user_realname = #{record.chanUserRealname,jdbcType=VARCHAR},
+      chan_user_id_number = #{record.chanUserIdNumber,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.netfinworks.optimus.entity.MemberEntity" >
+    update t_member
+    <set >
+      <if test="chanId != null" >
+        chan_id = #{chanId,jdbcType=VARCHAR},
+      </if>
+      <if test="chanUserId != null" >
+        chan_user_id = #{chanUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="chanUserName != null" >
+        chan_user_name = #{chanUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="payPasswd != null" >
+        pay_passwd = #{payPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="lockTime != null" >
+        lock_time = #{lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="chanUserRealname != null" >
+        chan_user_realname = #{chanUserRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="chanUserIdNumber != null" >
+        chan_user_id_number = #{chanUserIdNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.netfinworks.optimus.entity.MemberEntity" >
+    update t_member
+    set chan_id = #{chanId,jdbcType=VARCHAR},
+      chan_user_id = #{chanUserId,jdbcType=VARCHAR},
+      chan_user_name = #{chanUserName,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=VARCHAR},
+      pay_passwd = #{payPasswd,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      lock_time = #{lockTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR},
+      chan_user_realname = #{chanUserRealname,jdbcType=VARCHAR},
+      chan_user_id_number = #{chanUserIdNumber,jdbcType=VARCHAR}
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+</mapper>

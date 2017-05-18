@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.netfinworks</groupId>
+        <artifactId>optimus</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>optimus-facade</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.netfinworks</groupId>
+            <artifactId>optimus-entity</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.netfinworks.cloud.rpc</groupId>
+            <artifactId>rpc</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.6</source>
+                        <target>1.6</target>
+                        <encoding>UTF-8</encoding>
+                        <compilerArguments>
+                            <extdirs>src/main/webapp/WEB-INF/lib</extdirs>
+                        </compilerArguments>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>deployRelease</id>
+            <name>netfinworks Internal Repository</name>
+            <url>http://nexus.netfinworks.com:9081/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>deploySnapshot</id>
+            <name>netfinworks Internal Repository</name>
+            <url>http://nexus.netfinworks.com:9081/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+</project>

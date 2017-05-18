@@ -1,0 +1,95 @@
+<!-- 待出入款管理 -->
+<ol class="breadcrumb">
+    <li>/<a>待出入款管理</a></li>
+</ol>
+<div ng-controller="paymentContorller">
+
+    <label ng-cloak="" class="color-danger"
+           ng-show="orderId && payment.ins !== undefined && !payment.ins.length && !payment.outs.length">未找到相关详情信息</label>
+
+    <div ng-show="!orderId" class="box box-default box-solid">
+        <div class="box-header with-border">
+            <div class="box-title">统计说明
+            </div>
+        </div>
+        <div class="box-body">
+            <h5>
+                <span>统计日期:</span>
+                <label>{{date|date:'yyyy-MM-dd'}}</label>
+                <small>(充值提现的统计时间段为00:00:00-23:59:59)</small>
+                &nbsp;&nbsp;
+                <button class="btn btn-primary btn-form" ng-click="refresh();">刷新<i class="fa fa-spinner fa-spin"
+                                                                                    ng-show="loading"></i>
+                </button>
+                &nbsp;&nbsp;
+                <a ng-show="totalWaitExecs>0" href="#/daily/accountchange">当前有<span class="label label-danger">{{totalWaitExecs}}</span>条待执行记录,现在去执行</a>
+            </h5>
+
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped v-middle">
+        <tbody>
+        <tr>
+            <th ng-show="!orderId" style="width: 80px;"><input type="checkbox" ng-model="allIsCheck"
+                                                               ng-click="checkAll();">全选
+            </th>
+            <th>出入款</th>
+            <th>名称</th>
+            <th>操作类型</th>
+            <th>总金额(元)</th>
+            <th>操作</th>
+        </tr>
+        <tr ng-repeat="i in payment.ins">
+            <td ng-show="!orderId"><input type="checkbox" ng-click="check(i.id);" ng-model="this.checkboxs[i.id]"/></td>
+            <td>{{(orderId ?i.platName:'')+i.paymentTypeV}}</td>
+            <td>{{i.subjectName}}</td>
+            <td>{{i.actionTypeV}}</td>
+            <td>{{i.amountV}}</td>
+            <td>
+                <a href="{{i.type === 'ACCOUNT'?('#/daily/paymentaccount?date='+i.subjectNo.split(':')[1]+'&type='+i.actionType+'&amountV='+i.amountV):('#/daily/paymentdetail?type='+i.type+'&paymentType='+i.paymentType+'&subjectNo='+i.subjectNo+'&name='+i.subjectName+'&amountV='+i.amountV+'&actionType='+i.actionType+'&plat='+i.plat)}} ">详情</a>
+            </td>
+        </tr>
+        <tr class="high-tr">
+            <td ng-show="!orderId">-</td>
+            <td>入款合计</td>
+            <td>-</td>
+            <td>-</td>
+            <td><span class="label label-success">{{payment.inV}}</span></td>
+            <td>-</td>
+        </tr>
+
+        <tr ng-repeat="i in payment.outs">
+            <td ng-show="!orderId"><input type="checkbox" ng-click="check(i.id);" ng-model="this.checkboxs[i.id]"/></td>
+            <td>{{(orderId ?i.platName:'')+i.paymentTypeV}}</td>
+            <td>{{i.subjectName}}</td>
+            <td>{{i.actionTypeV}}</td>
+            <td>{{i.amountV}}</td>
+            <td>
+                <a href="{{(i.actionType==='ACTION_PROVISION_INVEST' && !i.hasAudited)?('#/products/detail?id='+i.subjectNo):( i.type === 'ACCOUNT'?('#/daily/paymentaccount?date='+i.subjectNo.split(':')[1]+'&type='+i.actionType+'&amountV='+i.amountV):('#/daily/paymentdetail?type='+i.type+'&paymentType='+i.paymentType+'&subjectNo='+i.subjectNo+'&name='+i.subjectName+'&amountV='+i.amountV+'&actionType='+i.actionType+'&plat='+i.plat+'&toPlat='+i.toPlat))}} ">详情</a>
+            </td>
+        </tr>
+        <tr class="high-tr">
+            <td ng-show="!orderId">-</td>
+            <td>出款合计</td>
+            <td>-</td>
+            <td>-</td>
+            <td><span class="label label-danger">{{payment.outV}}</span></td>
+            <td>-</td>
+        </tr>
+        <tr class="btn-tr">
+            <td ng-show="!orderId">-</td>
+            <td>轧差-{{payment.nettingV}}</td>
+            <td>-</td>
+            <td>-</td>
+            <td><span class="label"
+                      ng-class="{'label-danger':payment.nettingV=='出款','label-success':payment.nettingV=='入款'}">{{payment.nettingMoneyV}}</span>
+            </td>
+            <td><a class="btn btn-success" href="#" ng-show="!orderId" ng-click="makeRecord();">生成待执行记录<i
+                    class="fa fa-spin fa-spinner"
+                    ng-show="loadingMakeRecord"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

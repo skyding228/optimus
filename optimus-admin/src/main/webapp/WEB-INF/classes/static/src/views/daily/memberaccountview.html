@@ -1,0 +1,99 @@
+<!-- 账户变动一览-->
+<ol class="breadcrumb">
+    <li>/<a href="#/daily/memberaccount">会员账户</a></li>
+    <li><a href="#">详情</a></li>
+</ol>
+<div ng-controller="memberAccountViewController">
+    <div class="box box-solid box-default">
+        <div class="box-header with-border">
+            <div class="box-title">筛选条件
+            </div>
+        </div>
+        <div class="box-body query-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="position: relative;top: -13px;">
+                        <label class="group-label">交易日</label>
+
+                        <div style="width: 220px;display: inline-block;position: relative;top: 13px;">
+                            <div class='input-group date' my-date-time="{format:'YYYY-MM-DD',showClear:true}">
+                                <input type='text' class="form-control" ng-model="date"/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-inline">
+                        <label>用户编号</label>
+                        <input type="text" class="form-control" ng-model="userId" placeholder="完整的用户编号"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-inline">
+                        <label>订单类型</label>
+                        <select class="form-control" ng-model="orderType">
+                            <option ng-repeat="s in types" value="{{s.value}}"
+                                    ng-selected="s.value==orderType">{{s.text}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group form-group-inline">
+                        <label>订单状态</label>
+                        <select class="form-control" ng-model="orderStatus">
+                            <option ng-repeat="s in statuses" value="{{s.value}}"
+                                    ng-selected="s.value==orderStatus">{{s.text}}
+                            </option>
+                        </select>
+
+                    </div>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-primary" ng-click="query();">
+                        查询<i class="fa fa-spin fa-spinner" ng-show="loading"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped v-middle">
+        <tbody>
+        <tr>
+            <th>会员编号</th>
+            <th>用户编号</th>
+            <th>用户名称</th>
+            <th style="width: 220px;">订单编号</th>
+            <th>金额(元)</th>
+            <th>交易时间</th>
+            <th>交易类型</th>
+            <th>订单状态</th>
+            <th>备注</th>
+            <th>相关产品</th>
+        </tr>
+        <tr ng-repeat="r in orders">
+            <td>{{r.memberId}}</td>
+            <td>{{r.userId}}</td>
+            <td>{{r.userName}}</td>
+            <td>{{r.orderId}}</td>
+            <td>{{r.amountV}}</td>
+            <td>{{r.orderTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{r.orderTypeV}}</td>
+            <td>{{r.orderStatusV}}</td>
+            <td>{{r.memo}}</td>
+            <td><a href="#/products/detail?id={{r.productId}}" ng-show="r.productId">查看</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <pagination total-page="pagination.totalPage" current-page="pagination.currentPage"
+                on-select-page="query(page);"></pagination>
+</div>
+

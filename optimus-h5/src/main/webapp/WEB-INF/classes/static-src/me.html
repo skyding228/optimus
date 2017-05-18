@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>维金理财</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-icon-bars mui-pull-left" href="tradelist.html" style=""></a>
+			<!--<span class="mui-icon mui-icon-help mui-pull-right" style="font-size: 18px;font-weight: bold;" id="helpBtn"></span>-->
+			<h1 class="mui-title">个人中心</h1>
+
+			<!--<div class="mui-pull-left" style="margin-top: 5px;font-size: 14px;font-weight: bold;">
+				<a class="mui-icon mui-icon-bars" href="tradelist.html" style="font-size: 16px;"></a>&nbsp;<a href="tradelist.html">账单</a>
+			</div>-->
+
+			<div style="padding-top: 44px;position: relative;">
+				<div id="overviewContainer">
+					<div class="mui-text-center" style="padding: 10px;">
+						<span class="mui-spinner" id="loading"></span>
+						<h6>总资产(元)</h6>
+						<div class="i-split-line"></div>
+						<h1 class="i-number" style="font-size: 36px;">0</h1>
+					</div>
+					<div class="mui-text-center">
+						<h6>可用余额</h6>
+						<h3 class="i-number">0.0</h3>
+					</div>
+				</div>
+			</div>
+		</header>
+		<nav class="mui-bar mui-bar-tab" style="z-index: 999;">
+			<a class="mui-tab-item" href="index.html">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" href="products.html">
+				<span class="mui-icon mui-icon-list"></span>
+				<span class="mui-tab-label">理财</span>
+			</a>
+			<a class="mui-tab-item mui-active" href="me.html">
+				<span class="mui-icon mui-icon-person-filled"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+
+		</nav>
+		<div class="mui-content">
+
+			<div class="mui-row" style="margin-top: 190px;">
+				<div class="mui-col-xs-6" style="padding: 5px;">
+					<a href="mewithdraw.html" class="mui-btn mui-btn-royal mui-btn-block mui-btn-outlined">提现</a>
+				</div>
+				<div class="mui-col-xs-6" style="padding: 5px;">
+					<a href="medeposit.html" class="mui-btn mui-btn-royal mui-btn-block">充值</a>
+				</div>
+			</div>
+
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell mui-media">
+					<span class="i-list-style"></span>
+					<a href="myinvest.html" style="padding-right: 15px;">
+						<h4>我的定期</h4>
+						<div class="i-split-line"></div>
+						<div class="mui-row" id="subjectContainer">
+							<div class="mui-col-xs-6">
+								<p style="" class="i-number">0</p>
+								<br />
+								<h6 style="margin-top: -12px;">投资总额</h6>
+							</div>
+							<div class="mui-col-xs-3 mui-text-center i-font-normal">
+								<h4 style="margin-bottom: 0;">0</h4>
+								<br />
+								<h6 style="margin-top: -12px;">累计收益</h6>
+							</div>
+							<div class="mui-col-xs-3 mui-text-center">
+								<h4 style="margin-bottom: 0;">0</h4>
+								<br />
+								<h6 style="margin-top: -12px;">在途收益</h6>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<span class="i-list-style"></span>
+					<a href="#" style="padding-right: 15px;">
+						<!--orderdetail.html?id=1-->
+						<h4>我的基金</h4>
+						<div class="i-split-line"></div>
+						<div class="mui-row">
+							<div class="mui-col-xs-6">
+								<p style="" class="i-number">0</p>
+								<br />
+								<h6 style="margin-top: -12px;">持有总额</h6>
+							</div>
+							<div class="mui-col-xs-3 mui-text-center i-font-normal">
+								<h4 style="margin-bottom: 0;">0</h4>
+								<br />
+								<h6 style="margin-top: -12px;">累计收益</h6>
+							</div>
+							<div class="mui-col-xs-3 mui-text-center">
+								<h4 style="margin-bottom: 0;">0</h4>
+								<br />
+								<h6 style="margin-top: -12px;">昨日收益</h6>
+							</div>
+						</div>
+					</a>
+				</li>
+				<!--<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right">
+						安全设置
+					</a>
+				</li>-->
+			</ul>
+		</div>
+		<script type="text/template" id="overviewTmpl">
+			<div class="mui-text-center" style="padding: 10px;">
+				<h6>当前资产总值</h6>
+				<div class="i-split-line"></div>
+				<h1 class="i-number" style="font-size: 36px;"> {vm.totalAssetV}</h1>
+
+			</div>
+			<div class="mui-text-center">
+				<div class="i-split-line"></div>
+				<h6>可用余额</h6>
+				<h3 class="i-number">{vm.balanceV}</h3>
+				<div class="i-split-line"></div>
+				<div class="i-split-line"></div>
+			</div>
+		</script>
+		<script type="text/template" id="subjectTmpl">
+			<div class="mui-col-xs-6">
+				<p style="" class="i-number">{vm.subjectAssetV}</p>
+				<br />
+				<h6 style="margin-top: -12px;">投资总额</h6>
+			</div>
+			<div class="mui-col-xs-3 mui-text-center i-font-normal">
+				<h4 style="margin-bottom: 0;">{vm.totalProfitV}</h4>
+				<br />
+				<h6 style="margin-top: -12px;">累计收益</h6>
+			</div>
+			<div class="mui-col-xs-3 mui-text-center">
+				<h4 style="margin-bottom: 0;">{vm.subjectPreProfitV}</h4>
+				<br />
+				<h6 style="margin-top: -12px;">在途收益</h6>
+			</div>
+		</script>
+		<script src="js/mui.min.js"></script>
+		<script src="//cdn.bootcss.com/zepto/1.1.6/zepto.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/me.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="app_name" value="option-h5" />
+	<contextName>${app_name}</contextName>
+
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{HH:mm:ss.SSS} %-5level %logger{36}-%msg%n
+			</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="ErrorAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/opt/logs/${app_name}/error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/opt/logs/${app_name}/%d{yyyy-MM-dd}-error.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="InfoAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/opt/logs/${app_name}/info.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/opt/logs/${app_name}/%d{yyyy-MM-dd}-info.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
+			</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+	<appender name="FrameworkAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/opt/logs/${app_name}/framework.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/opt/logs/${app_name}/%d{yyyy-MM-dd}-framework.log
+			</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n
+			</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<logger level="debug" name="org.springframework">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FrameworkAppender" />
+	</logger>
+	<logger level="info" name="org.apache.cxf">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FrameworkAppender" />
+	</logger>
+	<logger level="info" name="org.mybatis">
+		<appender-ref ref="FrameworkAppender" />
+	</logger>
+	<logger level="debug" name="com.netfinworks.optimus.mapper">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FrameworkAppender" />
+	</logger>
+
+	<logger level="info" name="com.netfinworks.optimus">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="InfoAppender" />
+		<appender-ref ref="ErrorAppender" />
+	</logger>
+
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

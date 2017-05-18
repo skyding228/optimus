@@ -1,0 +1,90 @@
+/*修改默认字体*/
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: Microsoft YaHei, '宋体', Tahoma, Helvetica, Arial,
+    "\5b8b\4f53", sans-serif;
+}
+
+/*菜单栏*/
+.sidebar-none .main-sidebar {
+    width: 0;
+    overflow: hidden;
+}
+
+.sidebar-none .content-wrapper, .main-footer {
+    margin-left: 0px !important;
+}
+
+/*修改原样式*/
+.content-wrapper {
+    background-color: #FFFFFF;
+}
+
+.skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a {
+    background-color: #3c8dbc;
+}
+
+/*纠正button在form中偏移的问题*/
+.btn-form {
+    position: relative;
+    top: -2px;
+}
+
+/*元素水平居中*/
+.h-center {
+    display: inline-block !important;
+    margin: 0 auto;
+    text-align: center !important;
+}
+
+.v-middle {
+    vertical-align: middle !important;
+}
+
+.query-body {
+    padding-left: 100px;
+    padding-bottom: 0;
+}
+
+.form-group-inline {
+    width: 310px;
+    display: inline-block;
+}
+
+.form-group-inline label, .group-label {
+    width: 100px;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.form-group-inline .form-control {
+    width: 200px;
+    display: inline-block !important;
+}
+
+.high-tr {
+    background-color: #dddddd !important;
+}
+
+.btn-tr td {
+    line-height: 35px !important;
+}
+
+.dl-horizontal.large dt, .dl-horizontal.large dd {
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+.split-space {
+    height: 10px;
+}
+
+label.required::after {
+    content: '*';
+    color: red;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.color-danger {
+    color: red;
+}

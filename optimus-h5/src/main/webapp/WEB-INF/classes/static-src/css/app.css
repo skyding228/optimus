@@ -1,0 +1,260 @@
+.i-split-line {
+	height: 10px;
+}
+
+.i-font-normal {
+	font-style: normal;
+	color: #999999;
+	font-size: 15px;
+}
+
+small {
+	font-style: normal;
+	color: #999999;
+}
+
+.i-label-row {
+	font-style: normal;
+	font-size: 15px;
+	width: 100%;
+	float: left;
+}
+
+.i-label-row label {
+	display: block;
+	width: 100px;
+	color: #999999;
+	float: left;
+}
+
+.i-label-row span {
+	margin-left: 100px;
+	display: block;
+}
+
+.i-color-success {
+	color: green!important;
+}
+
+.i-color-error {
+	color: red!important;
+}
+
+.i-inline-block {
+	display: inline-block;
+}
+
+.i-color-royal {
+	color: #8a6de9 !important;
+}
+
+.i-color- .i-border-royal {
+	border-color: #8a6de9!important;
+}
+
+.i-border-left {
+	border-left: 1px #AAAAAA solid;
+}
+
+.i-border-right {
+	border-right: 1px #AAAAAA solid;
+}
+
+.i-border-top {
+	border-top: 1px #AAAAAA solid;
+}
+
+.i-border-bottom {
+	border-bottom: 1px #AAAAAA solid;
+}
+
+.i-large-icon {
+	margin: 3px;
+	width: 80px;
+	height: 80px;
+	display: inline-block;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 40px;
+	background-clip: padding-box;
+}
+
+.i-large-icon .mui-icon {
+	font-size: 80px;
+}
+
+.i-success-border {
+	border: 1px solid #00ff00;
+}
+
+.i-error-border {
+	border: 1px solid #ff0000;
+}
+
+.i-success-border .mui-icon {
+	color: #00ff00;
+}
+
+.i-error-border .mui-icon {
+	color: #ff0000;
+}
+
+.i-no-margin {
+	margin: 0!important;
+}
+
+.i-no-padding {
+	padding: 0!important;
+}
+
+.i-normal-padding {
+	padding: 10px!important;
+}
+
+.i-normal-margin {
+	margin: 10!important;
+}
+
+.i-text-middle {
+	vertical-align: middle;
+}
+
+.i-no-after::after {
+	display: none!important;
+}
+
+.mui-btn-block {
+	padding: 10px 0 !important;
+}
+
+.mui-content {
+	padding-bottom: 70px!important;
+}
+
+.rotate45 {
+	transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	/* Internet Explorer 9*/
+	-moz-transform: rotate(45deg);
+	/* Firefox */
+	-webkit-transform: rotate(45deg);
+	/* Safari 和 Chrome */
+	-o-transform: rotate(45deg);
+	/* Opera */
+}
+
+.i-list-style {
+	position: absolute;
+	display: inline-block;
+	width: 5px;
+	height: 18px;
+	background-color: #8a6de9;
+	/*#8a6de9,#5D8BF9,#F8B21E,#30B2CF,#FF5B5A*/
+	left: 0px;
+	top: 13px;
+	z-index: 9;
+}
+
+.i-list-style.all {
+	height: 100%;
+	top: -1px;
+}
+
+.i-a-color {
+	color: rgb(0, 122, 255);
+}
+
+.mui-ellipsis {
+	padding-right: 20px;
+	padding-top:1px;
+}
+
+.mui-popup {
+	position: fixed!important;
+}
+
+
+/*换肤*/
+
+.i-number {
+	color: #ff6235!important;
+	font-size: 22px;
+}
+
+
+/*标签页*/
+
+.mui-segmented-control .mui-control-item.mui-active {
+	color: #fff;
+	background-color: #ff6235;
+}
+
+.mui-segmented-control {
+	border: 1px solid #ff6235;
+}
+
+.mui-segmented-control .mui-control-item {
+	color: #ff6235;
+	border-color: #ff6235;
+	border-left: 1px solid #ff6235;
+}
+
+
+/*紫按钮*/
+
+.mui-btn-purple,
+.mui-btn-royal {
+	color: #fff;
+	border: 1px solid #ff6235;
+	background-color: #ff6235;
+}
+
+.mui-btn-outlined.mui-btn-purple,
+.mui-btn-outlined.mui-btn-royal {
+	color: #ff6235;
+}
+
+.mui-btn-outlined {
+	background-color: transparent;
+}
+
+
+/*进度条*/
+
+.progress-bar {
+	background-color: #ff6235;
+	height: 1px;
+	position: relative;
+	top: -11px;
+}
+
+
+/*底部*/
+
+.mui-bar-tab .mui-tab-item.mui-active {
+	color: #ff6235;
+}
+
+
+/*头部*/
+
+.header {
+	background-color: #1F436B;
+	/*rgb(232,7,63);*/
+	min-height: 44px;
+	height: auto;
+}
+
+.header a,
+.header h1,
+.header h4,
+.header h6,
+.header span,
+.header div {
+	color: white;
+}
+
+.mui-title {
+	font-weight: bold;
+	padding-top: 3px;
+}

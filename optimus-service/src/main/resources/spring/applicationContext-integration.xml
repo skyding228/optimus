@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+			http://www.springframework.org/schema/jee 
+			http://www.springframework.org/schema/jee/spring-jee-4.0.xsd 
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd 
+			http://www.springframework.org/schema/util 
+			http://www.springframework.org/schema/util/spring-util-4.0.xsd
+			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <!-- auto register LinkedProcessor -->
+    <context:annotation-config/>
+
+    <bean id="mefInvestRedeemProxy"
+          class="com.netfinworks.optimus.service.integration.common.IntegrationProxyImpl">
+        <property name="timeout" value="15000"/>
+        <property name="address" value="${mef.remote.url}/orders/InvestRedeemService"/>
+        <property name="clazz" value="com.vf.mef.jaxws.WsFaceService"/>
+    </bean>
+
+    <bean id="mefRedeemAllProxy"
+          class="com.netfinworks.optimus.service.integration.common.IntegrationProxyImpl">
+        <property name="timeout" value="15000"/>
+        <property name="address" value="${mef.remote.url}/orders/RedeemAllService"/>
+        <property name="clazz" value="com.vf.mef.jaxws.WsFaceService"/>
+    </bean>
+
+    <bean id="mefFacadeDataSignUtils" scope="singleton" init-method="init"
+          class="com.netfinworks.optimus.service.integration.mef.MefFacadeDataSignUtils">
+        <property name="productCode" value="${productCode}"/>
+        <property name="productName" value="${productName}"/>
+        <property name="issign" value="${issign}"/>
+        <property name="chanNo" value="${chanNo}"/>
+        <property name="instNo" value="${instNo}"/>
+        <property name="thisPrivateKey" value="${thisPrivateKey}"/>
+        <property name="thatPublicKey" value="${thatPublicKey}"/>
+    </bean>
+
+
+    <!-- invest -->
+
+    <!--<jaxws:client id="investQueryFacade"-->
+    <!--serviceClass="com.netfinworks.invest.facade.InvestQueryFacade"-->
+    <!--address="${invest-ws.address}/investQueryFacade" />-->
+    <!--<jaxws:client id="investFacade"-->
+    <!--serviceClass="com.netfinworks.invest.facade.InvestFacade" address="${invest-ws.address}/investFacade" />-->
+
+    <!--<jaxws:client id="investManagementFacade"-->
+    <!--serviceClass="com.netfinworks.invest.facade.InvestManagementFacade"-->
+    <!--address="${invest-ws.address}/investManagementFacade"></jaxws:client>-->
+
+</beans>

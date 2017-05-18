@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>理财平台-登录</title>
+    <meta
+            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+            name="viewport">
+    <link rel="stylesheet"
+          href="static/asset/bower_components/AdminLTE/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet"
+          href="static/asset/bower_components/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet"
+          href="static/asset/bower_components/AdminLTE/dist/css/AdminLTE.min.css"/>
+    <link rel="stylesheet"
+          href="static/asset/bower_components/AdminLTE/dist/css/skins/skin-blue.min.css"/>
+    <style>
+        body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+            font-family: Microsoft YaHei, '宋体', Tahoma, Helvetica, Arial,
+            "\5b8b\4f53", sans-serif;
+        }
+
+        .header {
+            background-attachment: scroll;
+            background-clip: border-box;
+            background-color: rgb(110, 140, 215);
+            background-image: url(static/asset/imgs/bg.jpg);
+            background-origin: padding-box;
+            background-size: auto;
+            border-bottom-color: rgb(255, 255, 255);
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+            border-bottom-style: none;
+            border-bottom-width: 0px;
+            border-image-outset: 0px;
+            border-image-repeat: stretch;
+            border-image-slice: 100%;
+            border-image-source: none;
+            border-image-width: 1;
+            border-left-color: rgb(255, 255, 255);
+            border-left-style: none;
+            border-left-width: 0px;
+            border-right-color: rgb(255, 255, 255);
+            border-right-style: none;
+            border-right-width: 0px;
+            border-top-color: rgb(255, 255, 255);
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            border-top-style: none;
+            border-top-width: 0px;
+            box-sizing: border-box;
+            color: rgb(255, 255, 255);
+            display: block;
+            font-size: 14px;
+            height: 130px;
+            line-height: 20px;
+            outline-color: rgb(255, 255, 255);
+            outline-style: none;
+            outline-width: 0px;
+            padding-bottom: 40px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 40px;
+            position: relative;
+        }
+
+        .title {
+            box-sizing: border-box;
+            color: rgb(255, 255, 255);
+            display: block;
+            font-family: Roboto, sans-serif;
+            font-size: 24px;
+            font-weight: 500;
+            height: 30px;
+            line-height: 30px;
+            margin-bottom: 10px;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 10px;
+            outline-color: rgb(255, 255, 255);
+            outline-style: none;
+            outline-width: 0px;
+            position: relative;
+            text-align: center;
+            width: 380px;
+            z-index: 999;
+        }
+
+        .body {
+            box-sizing: border-box;
+            color: rgb(51, 51, 51);
+            display: block;
+            font-size: 14px;
+            height: 380px;
+            line-height: 20px;
+            outline-color: rgb(51, 51, 51);
+            outline-style: none;
+            outline-width: 0px;
+            padding-bottom: 30px;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 30px;
+            width: 420px;
+        }
+
+        .form-control {
+            -webkit-appearance: none;
+            -webkit-rtl-ordering: logical;
+            -webkit-user-select: text;
+            background-color: rgb(250, 250, 250);
+            background-image: none;
+            border-bottom-color: rgb(238, 238, 238);
+            border-bottom-left-radius: 2px;
+            border-bottom-right-radius: 2px;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            border-image-outset: 0px;
+            border-image-repeat: stretch;
+            border-image-slice: 100%;
+            border-image-source: none;
+            border-image-width: 1;
+            border-left-color: rgb(238, 238, 238);
+            border-left-style: solid;
+            border-left-width: 1px;
+            border-right-color: rgb(238, 238, 238);
+            border-right-style: solid;
+            border-right-width: 1px;
+            border-top-color: rgb(238, 238, 238);
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            border-top-style: solid;
+            border-top-width: 1px;
+            box-shadow: none;
+            box-sizing: border-box;
+            color: rgba(0, 0, 0, 0.6);
+            cursor: auto;
+            display: block;
+            font-size: 14px;
+            font-stretch: normal;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            height: 46px;
+            letter-spacing: normal;
+            line-height: 18.6667px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+            outline-color: rgba(0, 0, 0, 0.6);
+            outline-style: none;
+            outline-width: 0px;
+            padding-bottom: 10px;
+            padding-left: 16px;
+            padding-right: 16px;
+            padding-top: 10px;
+            text-align: start;
+            text-indent: 0px;
+            text-rendering: auto;
+            text-shadow: none;
+            text-transform: none;
+            transition-delay: 0s, 0s;
+            transition-duration: 0.15s, 0.15s;
+            transition-property: border-color, box-shadow;
+            transition-timing-function: ease-in-out, ease-in-out;
+            width: 370px;
+            word-spacing: 0px;
+            -webkit-writing-mode: horizontal-tb;
+        }
+    </style>
+</head>
+<body style="background-color: #f5f5f5;text-align: center;">
+<div class="box box-solid" style="width: 420px;display: inline-block;margin:100px auto;">
+    <div class="box-header header">
+        <div class="title">理财平台</div>
+    </div>
+    <div class="box-body" style="margin:30px 20px 0 15px;">
+        <div class="form-group">
+            <input type="text" class="form-control" id="memberId" placeholder="用户名">
+        </div>
+    </div>
+    <div class="box-body" style="margin:-10px 20px 5px 15px;">
+        <div class="form-group">
+            <input type="password" class="form-control" id="password" placeholder="密码">
+        </div>
+    </div>
+    <div class="box-body" style="margin:0 15px 20px 15px;">
+        <span id="errorTxt" style="color: red;padding: 10px;"></span>
+
+        <button class="btn btn-primary btn-block btn-lg" onclick="login();">登录<i class="fa fa-spin fa-spinner"
+                                                                                 id="loadIcon"
+                                                                                 style="display: none;"></i>
+        </button>
+
+    </div>
+</div>
+<script type="text/javascript" src="static/asset/bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="static/asset/lib/sha1.js"></script>
+<script type="text/javascript">
+    var loading = false;
+    window.APPROOT = (function () {
+        var i = window.location.pathname.indexOf('login');
+        i = i == -1 ? window.location.pathname.indexOf('static') : i;
+        return window.location.pathname.substring(0, i - 1) || "";
+    })();
+    $.ajaxSetup({
+        headers: {'Content-type': 'application/json;charset=UTF-8', 'accept': 'application/json'}
+    });
+    $(document).bind("keydown",function(e){
+        // 兼容FF和IE和Opera    
+        var theEvent = e || window.event;    
+        var code = theEvent.keyCode || theEvent.which || theEvent.charCode;    
+        if (code == 13) {    
+            //回车执行查询
+               login();
+            }    
+    });
+    function login() {
+        if (loading) {
+            return;
+        }
+        var param = {};
+        param.memberId = $('#memberId').val();
+        param.payPasswd = $('#password').val();
+        if (!param.memberId) {
+            $('#errorTxt').text('请输入用户名!');
+            return;
+        }
+        if (!param.payPasswd) {
+            $('#errorTxt').text('请输入密码!');
+            return;
+        }
+        $('#errorTxt').text('');
+        param.payPasswd = hex_sha1(param.payPasswd);
+        $('#loadIcon').show();
+        loading = true;
+        $.post(APPROOT + "/dologin", JSON.stringify(param), function (result) {
+            window.location.href = result.result;
+        }).complete(function () {
+            $('#loadIcon').hide();
+            loading = false;
+        }).error(function (error) {
+            var json = error.responseJSON;
+            $('#errorTxt').text(json.reason);
+        });
+    }
+
+</script>
+</body>
+</html>

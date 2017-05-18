@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.netfinworks.optimus.mapper.AccountEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.netfinworks.optimus.entity.AccountEntity" >
+    <id column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="account_title_no" property="accountTitleNo" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="debitBalance" property="debitbalance" jdbcType="DECIMAL" />
+    <result column="creditBalance" property="creditbalance" jdbcType="DECIMAL" />
+    <result column="balance_direction" property="balanceDirection" jdbcType="CHAR" />
+    <result column="frozen_balance" property="frozenBalance" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    account_id, account_name, account_title_no, balance, debitBalance, creditBalance, 
+    balance_direction, frozen_balance, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.netfinworks.optimus.entity.AccountEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0" >
+      limit #{limitStart}, #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_account
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_account
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.netfinworks.optimus.entity.AccountEntityExample" >
+    delete from t_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.netfinworks.optimus.entity.AccountEntity" >
+    insert into t_account (account_id, account_name, account_title_no, 
+      balance, debitBalance, creditBalance, 
+      balance_direction, frozen_balance, create_time, 
+      update_time)
+    values (#{accountId,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}, #{accountTitleNo,jdbcType=VARCHAR}, 
+      #{balance,jdbcType=DECIMAL}, #{debitbalance,jdbcType=DECIMAL}, #{creditbalance,jdbcType=DECIMAL}, 
+      #{balanceDirection,jdbcType=CHAR}, #{frozenBalance,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.netfinworks.optimus.entity.AccountEntity" >
+    insert into t_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="accountTitleNo != null" >
+        account_title_no,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="debitbalance != null" >
+        debitBalance,
+      </if>
+      <if test="creditbalance != null" >
+        creditBalance,
+      </if>
+      <if test="balanceDirection != null" >
+        balance_direction,
+      </if>
+      <if test="frozenBalance != null" >
+        frozen_balance,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountTitleNo != null" >
+        #{accountTitleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="debitbalance != null" >
+        #{debitbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="creditbalance != null" >
+        #{creditbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceDirection != null" >
+        #{balanceDirection,jdbcType=CHAR},
+      </if>
+      <if test="frozenBalance != null" >
+        #{frozenBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.netfinworks.optimus.entity.AccountEntityExample" resultType="java.lang.Integer" >
+    select count(*) from t_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_account
+    <set >
+      <if test="record.accountId != null" >
+        account_id = #{record.accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountName != null" >
+        account_name = #{record.accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountTitleNo != null" >
+        account_title_no = #{record.accountTitleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.debitbalance != null" >
+        debitBalance = #{record.debitbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.creditbalance != null" >
+        creditBalance = #{record.creditbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.balanceDirection != null" >
+        balance_direction = #{record.balanceDirection,jdbcType=CHAR},
+      </if>
+      <if test="record.frozenBalance != null" >
+        frozen_balance = #{record.frozenBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_account
+    set account_id = #{record.accountId,jdbcType=VARCHAR},
+      account_name = #{record.accountName,jdbcType=VARCHAR},
+      account_title_no = #{record.accountTitleNo,jdbcType=VARCHAR},
+      balance = #{record.balance,jdbcType=DECIMAL},
+      debitBalance = #{record.debitbalance,jdbcType=DECIMAL},
+      creditBalance = #{record.creditbalance,jdbcType=DECIMAL},
+      balance_direction = #{record.balanceDirection,jdbcType=CHAR},
+      frozen_balance = #{record.frozenBalance,jdbcType=DECIMAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.netfinworks.optimus.entity.AccountEntity" >
+    update t_account
+    <set >
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountTitleNo != null" >
+        account_title_no = #{accountTitleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="debitbalance != null" >
+        debitBalance = #{debitbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="creditbalance != null" >
+        creditBalance = #{creditbalance,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceDirection != null" >
+        balance_direction = #{balanceDirection,jdbcType=CHAR},
+      </if>
+      <if test="frozenBalance != null" >
+        frozen_balance = #{frozenBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.netfinworks.optimus.entity.AccountEntity" >
+    update t_account
+    set account_name = #{accountName,jdbcType=VARCHAR},
+      account_title_no = #{accountTitleNo,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DECIMAL},
+      debitBalance = #{debitbalance,jdbcType=DECIMAL},
+      creditBalance = #{creditbalance,jdbcType=DECIMAL},
+      balance_direction = #{balanceDirection,jdbcType=CHAR},
+      frozen_balance = #{frozenBalance,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+</mapper>

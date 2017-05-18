@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<properties resource="${mybatis.generator.dbConfigFile}" />
+
+	<context id="com.netfinworks.optimus" targetRuntime="MyBatis3">
+		<plugin
+			type="com.netfinworks.optimus.framework.mybatis.generator.EntityCommentPlugin"></plugin>
+		<plugin
+			type="com.netfinworks.optimus.framework.mybatis.generator.PaginationPlugin"></plugin>
+		<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库连接信息 -->
+		<jdbcConnection driverClass="${jdbc.driver}"
+			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}" />
+		<!-- 配置model生成目录和其它参数 -->
+		<javaModelGenerator targetPackage="${mybatis.generator.package.path}"
+			targetProject="${mybatis.generator.javaFileDir}">
+			<property name="rootClass" value="com.netfinworks.optimus.entity.BaseEntity" />
+		</javaModelGenerator>
+		<!-- 配置mapper生成目录和其它参数 -->
+		<sqlMapGenerator targetPackage="${mybatis.generator.mapper.path}"
+			targetProject="${mybatis.generator.resourcesFileDir}" />
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="${mybatis.generator.mapper.path}" targetProject="${mybatis.generator.javaFileDir}">
+		</javaClientGenerator>
+
+		<table tableName="t_member" domainObjectName="MemberEntity"></table>
+		<table tableName="t_account" domainObjectName="AccountEntity"></table>
+		<table tableName="t_deposit_order" domainObjectName="DepositOrderEntity"></table>
+		<table tableName="t_withdraw_order" domainObjectName="WithdrawOrderEntity"></table>
+		<table tableName="t_order" domainObjectName="OrderEntity"></table>
+		<table tableName="t_entry" domainObjectName="EntryEntity"></table>
+		<table tableName="t_dict" domainObjectName="DictEntity"></table>
+		<table tableName="t_payment" domainObjectName="PaymentEntity"></table>
+		<table tableName="t_chan_view" domainObjectName="ChanViewEntity"></table>
+	</context>
+</generatorConfiguration>

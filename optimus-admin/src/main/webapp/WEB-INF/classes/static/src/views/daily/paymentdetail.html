@@ -1,0 +1,89 @@
+<!-- 待出入款管理  明细查询-->
+<ol class="breadcrumb">
+    <li></li>
+    <li><a href="#/daily/payment">待出入款管理</a></li>
+    <li><a>明细查询</a></li>
+</ol>
+
+<div ng-controller="paymentDeatilController">
+    <div>
+        <h3 style="display: inline-block;">{{param.name}}</h3>
+        <small>(产品名称)</small>
+        <!--&nbsp;&nbsp;-->
+        <!--<h4 style="display: inline-block;">201501</h4>-->
+        <!--<small>(统计日期)</small>-->
+        &nbsp;&nbsp;
+        <h4 style="display: inline-block;">{{param.amountV}}</h4>
+        <small>(总金额)</small>
+        <i class="fa fa-spin fa-spinner" ng-show="loading"></i>
+    </div>
+    <table class="table table-bordered table-striped v-middle" ng-show="paymentRecords.length">
+        <tbody>
+        <tr>
+            <th>会员编号</th>
+            <th>用户编号</th>
+            <th>用户名称</th>
+            <th style="width: 220px;">订单编号</th>
+            <th>金额(元)</th>
+            <th>交易时间</th>
+            <th>交易类型</th>
+            <th>订单状态</th>
+        </tr>
+        <tr ng-repeat="r in paymentRecords">
+            <td>{{r.memberId}}</td>
+            <td>{{r.userId}}</td>
+            <td>{{r.userName}}</td>
+            <td>{{r.bidOrderNo}}</td>
+            <td>{{r.amountV}}</td>
+            <td>{{r.bidTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>投资</td>
+            <td>{{r.statusV}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-bordered table-striped v-middle" ng-show="repaymentRecords.length">
+        <tbody>
+        <tr>
+            <th style="width: 220px;">会员编号</th>
+            <th>用户编号</th>
+            <th>用户名称</th>
+            <th>本金(元)</th>
+            <th>利息(元)</th>
+            <th>交易状态</th>
+        </tr>
+        <tr ng-repeat="r in repaymentRecords">
+            <td>{{r.memberId}}</td>
+            <td>{{r.userId}}</td>
+            <td>{{r.userName}}</td>
+            <td>{{r.principalV}}</td>
+            <td>{{r.interestV}}</td>
+            <td>已还款</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-bordered table-striped v-middle" ng-show="fundRecords.length">
+        <tbody>
+        <tr>
+            <th>会员编号</th>
+            <th>用户名</th>
+            <th style="width: 220px;">订单编号</th>
+            <th>金额(元)</th>
+            <th>交易时间</th>
+            <th>交易类型</th>
+            <th>订单状态</th>
+        </tr>
+        <tr ng-repeat="r in fundRecords">
+            <td>{{r.memberId}}</td>
+            <td>{{r.userName}}</td>
+            <td>{{r.orderId}}</td>
+            <td>{{r.amountV}}</td>
+            <td>{{r.orderTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td>{{r.orderTypeV}}</td>
+            <td>{{r.statusV}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <pagination total-page="pagination.totalPage" current-page="pagination.currentPage"
+                on-select-page="queryPage(page);"></pagination>
+</div>

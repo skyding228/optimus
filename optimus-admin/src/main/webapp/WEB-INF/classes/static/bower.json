@@ -1,0 +1,17 @@
+{
+  "name": "hx",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "#1.4.8",
+    "angular-sanitize": "^1.4.0",
+    "requirejs": "~2.1.22",
+    "angular-ui-router": "~0.2.15",
+    "lodash": "~3.10.1",
+    "jquery": "~2.1.4",
+    "AdminLTE": "adminlte#~2.3.0",
+    "font-awesome": "~4.4.0",
+    "eonasdan-bootstrap-datetimepicker": "~4.17.37"
+  },
+  "appPath": "app",
+  "moduleName": "hx"
+}

@@ -1,0 +1,657 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.1",
+        "title": "星驿付交互接口",
+        "description": "<pre>信息说明</pre>\n* **auth-id:**\n所有的接口调用时，报文头中都必须包含此值.不同的接口可能不同，这个是对接口进行限量节流及统计使用;具体值由接口提供方提供\n* **加密算法:**\n加密时,将**报文体参数**(auth-id是在报文头中传递,加密内容无需包含此参数)对象转换为json字符串加上平台编号(由维金提供)进行sha1加密生成40位小写字符串;若加密接口中有非必填字段且不传递具体值时，在加密时使用空字符串(\"\")代替;\n<br/>例如:\n```\n参数对象为:\n{orderId:\"DEPOSIT00001\",memberId:\"1000001\",amount:\"100.00\"}\n则加密对象为:\n{plat:\"1234\",params:{orderId:\"DEPOSIT00001\",memberId:\"1000001\",amount:\"100.00\"}}\n则加密字符串为：(key按照字典顺序排列)\n'{\"params\":{\"amount\":\"100.00\",\"memberId\":\"1000001\",\"orderId\":\"DEPOSIT00001\"},\"plat\":\"1234\"}'\n则加密结果为：\n1eff6ba75a9b928cd8988dafb8ccf5cfa9cfe4f2\n```\n密文在报文头中通过 **cryptograph** 传递\n* **A方、B方:**\n在本文档中A方代表维金,B方代表星驿付\n* **订单编号:**\n文档中出现的所有订单编号都需要具有唯一性;最大长度为50位,建议使用类型标识+UUID\n* **金额:**\n所有金额参数都为BigDecimal类型(两位小数)\n* **响应结果:**\n响应状态码为200的响应是成功响应，其他状态码均为失败响应,在失败响应中需在字段reason中提供响应失败描述信息;\n* **重试机制:**\n允许重试的接口中，接口提供方需要允许重试,同一订单只能被成功处理一次；接口调用方在得到失败响应之后可以继续重试，直到响应成功;\n* **回调机制:**\n不能事实响应的接口，在调用时需传递回调地址，待处理完成后接口实现方需将处理结果通过回调地址发送给接口调用方;\n* **B方提供:**\n此文档中出现的B方提供接口,B方需按照接口定义来实现接口，但是路径可以由B方指定;\n\n<pre>文档使用说明</pre>\n* **数据模型查看方式**:\n文档中展示数据的方式有两种，一种是展示数据类型的(模型结构),一种是展示数据描述及是否必须的，未标明optional的字段均为必须字段\n* **接口调用说明**:\n在文档中对应位置填入相应参数值，点击试一试即可查看响应结果及调用方式<br/>\n<a href=\"images/GIF.gif\">点此查看文档使用动画</a>\n\n<pre>Change Log</pre>\n## **20160317:** \n* 添加了提现回调接口及加密测试接口\n* 报文头中auth_id 修改成了auth-id\n* 平台编号使用XINGYIFU2016,auth-id使用56c67328e138234210000001c3684bbb000549445451f9f19fb9f27c\n\n## **20160323:**\n* 修改了token验证接口\n\n## **20160325:**\n* 充值提现接口中的memberId修改成了token\n\n## **20160331：**\n* 充值提现接口参数修改\n\n## **20160405:**\n* 添加对账接口 ,账户相关->对账文件下载接口\n"
+    },
+    "host": "func92.vfinance.cn",
+    "basePath": "/optimus-h5/api",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/test": {
+            "post": {
+                "tags": [
+                    "测试"
+                ],
+                "summary": "加密测试\n",
+                "description": "查询账户资产总览信息",
+                "parameters": [
+                    {
+                        "name": "auth-id",
+                        "in": "header",
+                        "description": "认证编号,见文档头部信息说明",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "cryptograph",
+                        "in": "header",
+                        "description": "加密后的密文，加密算法见报文头",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "params",
+                        "in": "body",
+                        "description": "请求参数",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Token"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回收到的参数信息",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "default": {
+                        "description": "响应失败",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/index": {
+            "post": {
+                "tags": [
+                    "会员相关"
+                ],
+                "summary": "用户登录跳转\n",
+                "description": "B方用户单点登录后携带token跳转至此,A方根据token信息去验证此token是否有效;B方需提供验证接口",
+                "parameters": [
+                    {
+                        "name": "auth-id",
+                        "in": "header",
+                        "description": "认证编号,见文档头部信息说明",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "cryptograph",
+                        "in": "header",
+                        "description": "根据参数值加密后的密文;",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "token",
+                        "in": "body",
+                        "description": "用户登录后在B方的有效标识",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Token"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "理财平台首页"
+                    },
+                    "default": {
+                        "description": "错误信息页"
+                    }
+                }
+            }
+        },
+        "/account/me": {
+            "post": {
+                "tags": [
+                    "会员相关"
+                ],
+                "summary": "用户个人中心\n",
+                "description": "B方用户单点登录后携带token跳转至此,A方根据token信息去验证此token是否有效;",
+                "parameters": [
+                    {
+                        "name": "auth-id",
+                        "in": "header",
+                        "description": "认证编号,见文档头部信息说明",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "cryptograph",
+                        "in": "header",
+                        "description": "根据参数值加密后的密文;",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "token",
+                        "in": "body",
+                        "description": "用户登录后在B方的有效标识",
+                        "schema": {
+                            "$ref": "#/definitions/Token"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "用户个人中心页面"
+                    },
+                    "default": {
+                        "description": "错误信息页"
+                    }
+                }
+            }
+        },
+        "/account/deposit": {
+            "post": {
+                "tags": [
+                    "会员相关"
+                ],
+                "summary": "账户充值页面\n",
+                "description": "B方用户单点登录后携带token跳转至此,A方根据token信息去验证此token是否有效;",
+                "parameters": [
+                    {
+                        "name": "auth-id",
+                        "in": "header",
+                        "description": "认证编号,见文档头部信息说明",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "cryptograph",
+                        "in": "header",
+                        "description": "根据参数值加密后的密文;",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "token",
+                        "in": "body",
+                        "description": "用户登录后在B方的有效标识",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Token"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "充值页面"
+                    },
+                    "default": {
+                        "description": "错误信息页"
+                    }
+                }
+            }
+        },
+        "/account/overview": {
+            "post": {
+                "tags": [
+                    "账户相关"
+                ],
+                "summary": "账户总览\n",
+                "description": "查询账户资产总览信息",
+                "parameters": [
+                    {
+                        "name": "auth-id",
+                        "in": "header",
+                        "description": "认证编号,见文档头部信息说明",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "cryptograph",
+                        "in": "header",
+                        "description": "加密后的密文，加密算法见报文头",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "token",
+                        "in": "body",
+                        "description": "用户登录后在B方的有效标识",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Token"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "totalAssets",
+                                "balance"
+                            ],
+                            "properties": {
+                                "totalAssets": {
+                                    "description": "BigDecimal类型 总资产",
+                                    "type": "number"
+                                },
+                                "balance": {
+                                    "description": "账户余额",
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "响应失败",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/checking": {
+            "post": {
+                "tags": [
+                    "账户相关"
+                ],
+                "summary": "对账文件下载接口\n",
+                "description": "下载最近30天内某日(00:00:00 - 23:59:59)的充值提现对账文件;文件类型为txt;文件内容是具体交易记录,每行一条记录,不包列名信息;通过|分隔列,依次为 <pre> **订单时间:** B方处理完成后返回的订单时间,格式是yyyy-MM-dd HH:mm:ss</br> **原始订单编号:** A方发起时的订单编号</br> **外部订单编号:** B方处理完成后返回的B方订单编号</br> **会员编号:** B方会员在B方的memberId</br> **订单类型:** 只有两种 deposit:充值,withdraw:提现</br> **金额:** 精确到两位小数</br> **订单状态:** 只有两种 S:成功,F:失败</br> **备注:** 订单处理备注信息 </pre> 内容示例: <pre> 2016-03-31 13:15:07|2016033113150690001|xxxxxxx|test002|deposit|1000.00|S|充值成功! </pre>\n",
+                "parameters": [
+                    {
+                        "name": "auth-id",
+                        "in": "header",
+                        "description": "认证编号,见文档头部信息说明",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "cryptograph",
+                        "in": "header",
+                        "description": "加密后的密文，加密算法见报文头",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "date",
+                        "in": "body",
+                        "description": "用户登录后在B方的有效标识",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "date"
+                            ],
+                            "properties": {
+                                "date": {
+                                    "description": "对账日期,格式为yyyy-MM-dd",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回对应对账日的交易记录文件"
+                    },
+                    "default": {
+                        "description": "响应失败",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/callback/account/deposit": {
+            "post": {
+                "tags": [
+                    "账户相关"
+                ],
+                "summary": "充值(转入)回调",
+                "description": "A方发起充值时传递回调地址,待B方处理完成后将处理结果通过回调地址发送给A方,若B方回调时没有收到成功响应，需重试直至成功响应;",
+                "parameters": [
+                    {
+                        "name": "auth-id",
+                        "in": "header",
+                        "description": "认证编号,见文档头部信息说明",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "cryptograph",
+                        "in": "header",
+                        "description": "根据参数值加密后的密文，加密算法参见文档头部描述; 若响应失败B方可一直重试直到成功,A方会根据订单编号排重,同一订单号只会成功处理一次;",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "OrderInfo",
+                        "in": "body",
+                        "description": "订单信息",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/OrderResponse"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "回调成功"
+                    },
+                    "default": {
+                        "description": "响应status为200以外的情况，处理失败",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/callback/account/redeem": {
+            "post": {
+                "tags": [
+                    "账户相关"
+                ],
+                "summary": "提现(转出)回调",
+                "description": "A方发起充值时传递回调地址,待B方处理完成后将处理结果通过回调地址发送给A方,若B方回调时没有收到成功响应，需重试直至成功响应;",
+                "parameters": [
+                    {
+                        "name": "auth-id",
+                        "in": "header",
+                        "description": "认证编号,见文档头部信息说明",
+                        "type": "string",
+                        "required": true
+                    },
+                    {
+                        "name": "cryptograph",
+                        "in": "header",
+                        "description": "根据参数值加密后的密文，加密算法参见文档头部描述; 若响应失败B方可一直重试直到成功,A方会根据订单编号排重,同一订单号只会成功处理一次;",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "OrderInfo",
+                        "in": "body",
+                        "description": "订单信息",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/OrderResponse"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "回调成功"
+                    },
+                    "default": {
+                        "description": "响应status为200以外的情况，处理失败",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/b/account/deposit": {
+            "post": {
+                "tags": [
+                    "B方提供"
+                ],
+                "summary": "充值(转入)",
+                "description": "充值接口;B方提供,A方发起充值时传递回调地址,待B方处理完成后将处理结果通过回调地址发送给A方,若B方回调时没有收到成功响应，需重试直至成功响应;",
+                "parameters": [
+                    {
+                        "name": "cryptograph",
+                        "in": "header",
+                        "description": "根据参数值加密后的密文，加密算法参见文档头部描述; 若响应失败B方可一直重试直到成功,A方会根据订单编号排重,同一订单号只会成功处理一次;",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "OrderInfo",
+                        "in": "body",
+                        "description": "订单信息",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/OrderInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "充值成功",
+                        "schema": {
+                            "$ref": "#/definitions/OrderResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "响应status为200以外的情况，处理失败",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/b/account/redeem": {
+            "post": {
+                "tags": [
+                    "B方提供"
+                ],
+                "summary": "提现(转出)",
+                "description": "提现是A方发起,这个是A方账户与B方账户之间资金流动,不涉及第三方支付;",
+                "parameters": [
+                    {
+                        "name": "cryptograph",
+                        "in": "header",
+                        "description": "根据参数值加密后的密文，加密算法参见文档头部描述;如响应失败,A方会一直重试,直到成功,B方要确保同一订单只会被成功处理一次;",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "OrderInfo",
+                        "in": "body",
+                        "description": "订单信息",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/OrderInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "提现成功",
+                        "schema": {
+                            "$ref": "#/definitions/OrderResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "响应status为200以外的情况，处理失败",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/b/member/token": {
+            "post": {
+                "tags": [
+                    "B方提供"
+                ],
+                "summary": "sso校验及会员信息获取",
+                "description": "通过此接口进行单点登录验证,token是B方跳转时传递过来的参数,A方根据此token向B方发起用户身份校验;根据参数决定是否返回用户基本信息",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "description": "验证B方用户身份标识",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/TokenValidate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "接口调用成功",
+                        "schema": {
+                            "$ref": "#/definitions/UserInfo"
+                        }
+                    },
+                    "default": {
+                        "description": "响应status为200以外的情况，处理失败",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Token": {
+            "type": "object",
+            "required": [
+                "token"
+            ],
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "description": "B方登录用户的唯一标识"
+                }
+            }
+        },
+        "TokenValidate": {
+            "type": "object",
+            "required": [
+                "token",
+                "needInfo"
+            ],
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "description": "B方登录用户的唯一标识"
+                },
+                "needInfo": {
+                    "type": "string",
+                    "description": "是否返回B方用户的基本信息，0 否,1 是;"
+                }
+            }
+        },
+        "OrderInfo": {
+            "type": "object",
+            "required": [
+                "orderId",
+                "token",
+                "amount"
+            ],
+            "properties": {
+                "orderId": {
+                    "type": "string",
+                    "description": "唯一的订单编号."
+                },
+                "token": {
+                    "type": "string",
+                    "description": "用户跳转时携带的身份信息"
+                },
+                "amount": {
+                    "type": "number",
+                    "description": "充值金额"
+                },
+                "pwd": {
+                    "type": "string",
+                    "description": "B方平台支付密码"
+                },
+                "notifyUrl": {
+                    "type": "string",
+                    "description": "回调地址,只有需要回调的接口才需要此参数,若不需要此参数的接口加密时使用空值(\"\")"
+                }
+            }
+        },
+        "OrderResponse": {
+            "type": "object",
+            "required": [
+                "orderId",
+                "originOrderId",
+                "orderTime"
+            ],
+            "properties": {
+                "orderId": {
+                    "type": "string",
+                    "description": "接口实现方处理后的订单编号"
+                },
+                "originOrderId": {
+                    "type": "string",
+                    "description": "原始订单号,接口调用方调用时传递的订单编号"
+                },
+                "orderTime": {
+                    "type": "number",
+                    "description": "订单处理完成时间,long类型的毫秒数"
+                },
+                "status": {
+                    "type": "string",
+                    "description": "SUCCESS 表示成功,FAIL 表示失败"
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "订单处理结果描述"
+                }
+            }
+        },
+        "ErrorResponse": {
+            "type": "object",
+            "required": [
+                "status",
+                "reason"
+            ],
+            "properties": {
+                "status": {
+                    "type": "integer",
+                    "description": "响应状态码"
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "与人友好的错误描述信息"
+                }
+            }
+        },
+        "UserInfo": {
+            "type": "object",
+            "required": [
+                "memberId",
+                "memberName"
+            ],
+            "properties": {
+                "memberId": {
+                    "type": "string",
+                    "description": "会员编号"
+                },
+                "memberName": {
+                    "type": "string",
+                    "description": "用于显示的会员昵称"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "邮箱地址"
+                },
+                "telphone": {
+                    "type": "string",
+                    "description": "手机号"
+                },
+                "realName": {
+                    "type": "string",
+                    "description": "真实姓名"
+                },
+                "idNumber": {
+                    "type": "string",
+                    "description": "身份证编号"
+                }
+            }
+        }
+    }
+}

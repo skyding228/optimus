@@ -1,0 +1,2 @@
+/*! hx 2016-05-17 13 */
+define("config",function(){var config={};config.views_base_path=APPROOT+"static/asset/views",config.view_suffix=".html",config.load_interface_url="/data/interface.json";var events=config.EVENTS={};return events.ROUTER_CHANGE_SUCCESS="routerChangeSuccessEvent",config});

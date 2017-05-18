@@ -1,0 +1,2 @@
+/*! finlog 2016-05-18 09 */
+function update(){mui.getJSON(server,{appid:plus.runtime.appid,version:plus.runtime.version,imei:plus.device.imei},function(data){data.status&&plus.nativeUI.confirm(data.note,function(event){0==event.index&&plus.runtime.openURL(data.url)},data.title,["立即更新","取　　消"])})}var server="http://www.dcloud.io/check/update";mui.plusReady(update);

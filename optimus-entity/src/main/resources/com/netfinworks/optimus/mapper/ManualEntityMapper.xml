@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.netfinworks.optimus.mapper.ManualEntityMapper">
+	<sql id="MYSQL_paginationStart">
+		<if test="offset != null and pageSize != null">
+		</if>
+	</sql>
+	<sql id="MYSQL_paginationEnd">
+		<if test="offset != null and pageSize != null">
+			LIMIT #{offset},#{pageSize}
+		</if>
+	</sql>
+
+
+	<!--queryEntryList start -->
+	<select id="queryEntryList"
+		resultMap="com.netfinworks.optimus.mapper.EntryEntityMapper.BaseResultMap">
+		<include refid="MYSQL_paginationStart" />
+		select
+		<include
+			refid="com.netfinworks.optimus.mapper.EntryEntityMapper.Base_Column_List" />
+		from t_entry
+		<include refid="query_entry_list_condition" />
+		order by CREATE_TIME desc
+		<include refid="MYSQL_paginationEnd" />
+	</select>
+
+	<select id="countEntryList" resultType="int">
+		select count(1) from t_entry
+		<include refid="query_entry_list_condition" />
+	</select>
+
+	<sql id="query_entry_list_condition">
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="memberId != null and memberId.trim().length() != 0">
+				AND (member_id = #{memberId})
+			</if>
+			<if test="dcType != null and dcType.trim().length() > 0">
+				AND (dc = #{dcType})
+			</if>
+			<if test="startDate != null">
+				AND <![CDATA[create_time >=  #{startDate}]]>
+			</if>
+			<if test="endDate != null">
+				AND <![CDATA[create_time <= #{endDate}]]>
+			</if>
+		</trim>
+	</sql>
+	<!--queryEntryList end -->
+
+
+	<!--queryTotalBalance start -->
+	<resultMap id="ChanStatsEntityBaseResultMap"
+		type="com.netfinworks.optimus.entity.ChanStatsEntity">
+		<result column="cnt" property="cnt" jdbcType="INTEGER" />
+		<result column="balance" property="balance" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<select id="queryTotalBalanceByChan" resultMap="ChanStatsEntityBaseResultMap"
+		parameterType="java.lang.String">
+		select count(1) as cnt, IFNULL(sum(a.balance),0) as
+		balance from t_account a
+		,t_member b
+		where a.account_id = b.account_id
+		and b.chan_id =
+		#{chanId,jdbcType=VARCHAR} and b.type = 'INVEST'
+	</select>
+
+	<!--queryTotalBalance end -->
+
+
+	<select id="selectAccountEntityByPrimaryKeyForUpdate"
+		resultMap="com.netfinworks.optimus.mapper.AccountEntityMapper.BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include
+			refid="com.netfinworks.optimus.mapper.AccountEntityMapper.Base_Column_List" />
+		from t_account
+		where account_id = #{accountId,jdbcType=VARCHAR} for
+		update
+	</select>
+
+
+	<!--下载对账文件 start -->
+	<resultMap id="AccountCheckEntityBaseResultMap"
+		type="com.netfinworks.optimus.entity.AccountCheckEntity">
+		<result column="order_time" property="orderTime" jdbcType="VARCHAR" />
+		<result column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<result column="outer_order_id" property="outerOrderId"
+			jdbcType="VARCHAR" />
+		<result column="chan_user_id" property="chanUserId" jdbcType="VARCHAR" />
+		<result column="order_type" property="orderType" jdbcType="VARCHAR" />
+		<result column="amount" property="amount" jdbcType="VARCHAR" />
+		<result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+		<result column="memo" property="memo" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="queryAccountChecking" resultMap="AccountCheckEntityBaseResultMap">
+		SELECT DATE_FORMAT( o.order_time,'%Y-%m-%d %T') order_time
+		,o.order_id,o.outer_order_id,
+		o.chan_user_id,o.order_type,o.amount,o.order_status,o.memo
+		FROM t_order
+		o
+		WHERE o.order_status = 'S' AND o.order_type IN
+		('deposit','withdraw')
+		AND o.chan_id = #{chanId} AND
+		DATE_FORMAT(o.order_time,'%Y-%m-%d') =
+		#{date} ORDER BY
+		o.order_time
+		<include refid="MYSQL_paginationEnd" />
+	</select>
+
+	<!--下载对账文件 end -->
+
+
+	<resultMap id="AccountNettingResultMap" type="com.netfinworks.optimus.entity.PaymentEntity">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<result column="subject_no" property="subjectNo" jdbcType="VARCHAR" />
+		<result column="subject_name" property="subjectName" jdbcType="VARCHAR" />
+		<result column="amount" property="amount" jdbcType="DECIMAL" />
+		<result column="payment_type" property="paymentType" jdbcType="VARCHAR" />
+		<result column="action_type" property="actionType" jdbcType="VARCHAR" />
+		<result column="subject_type" property="subjectType" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="plat" property="plat" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="queryAccountNetting" resultMap="AccountNettingResultMap">
+		SELECT DATE_FORMAT(DATE_SUB(CURDATE(),INTERVAL 1 DAY),'%Y%m%d')
+		subject_no,o.chan_id
+		plat,o.order_type payment_type, SUM(o.amount)
+		amount
+		FROM t_order o
+		WHERE o.order_type IN
+		<foreach item="item" index="index" collection="orderTypes"
+			open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		AND o.order_status =
+		#{orderStatus}
+		<if test="plat != null">
+			AND o.chan_id = #{plat}
+		</if>
+		<if test="date != null">
+			AND DATE(o.order_time)=DATE(#{date})
+		</if>
+		<if test="date == null">
+			AND DATE(o.order_time)=DATE_SUB(CURDATE(),INTERVAL 1 DAY)
+		</if>
+		GROUP BY
+		o.chan_id,o.order_type
+	</select>
+
+	<select id="countPaymentSuccessBySubjectNo" resultType="int">
+		select
+		count(1) from t_payment p , t_order o
+		where p.order_id = o.order_id and
+		o.order_status = 'S'
+		and p.plat = 'VFINANCE' and p.action_type =
+		#{actionType} and
+		p.subject_no= #{subjectNo}
+	</select>
+	<!--查询平台 某种出入款类型的总额start-->
+	<select id="countChanTotal" resultType="BigDecimal">
+		SELECT sum(p.`amount`)
+		FROM t_entry e JOIN t_order o ON e.`order_id` =
+		o.`order_id` AND e.`order_type` = #{orderType} AND o.`chan_id` =
+		#{chanId}
+		JOIN t_payment p ON p.`order_id` = o.`order_id` AND
+		p.`action_type` =
+		#{actionType}
+		<if test="date != null">
+			WHERE DATE(e.`create_time`) =
+			DATE(#{date})
+		</if>
+	</select>
+	<!--查询平台 昨日还款总额-->
+	<select id="queryChanRepayemntSubjectNos" resultType="String">
+		SELECT
+		p.`subject_no` FROM t_entry e JOIN t_order o ON e.`order_id` =
+		o.`order_id` AND e.`order_type` = 'manual_in' AND o.`chan_id`=
+		#{chanId} JOIN t_payment p ON p.`order_id` = o.`order_id` AND
+		p.`action_type` = 'ACTION_REPAYMENT'
+		<if test="date != null">
+			WHERE DATE(e.`create_time`) =
+			DATE(#{date})
+		</if>
+	</select>
+
+	<!--查询平台某日备付金投资start-->
+	<select id="countProvisionInvest" resultType="BigDecimal">
+		SELECT
+		SUM(p.amount) FROM t_entry e JOIN t_order o ON DATE(
+		e.`create_time`)=DATE(#{date}) AND e.`order_id`=o.`order_id` JOIN
+		t_payment p ON
+		o.`order_id` = p.`order_id` AND p.`action_type` =
+		'ACTION_PROVISION_INVEST' AND p.plat=#{chanId}
+	</select>
+
+	<!--查询平台某日备付金还款本金和利息 start-->
+	<select id="countProvisionRecovery"
+		resultMap="com.netfinworks.optimus.mapper.ChanViewEntityMapper.BaseResultMap">
+		SELECT SUM(ext1) AS provision_principal,SUM(ext2) AS provision_interest FROM t_order o1 WHERE
+		o1.`order_type`='recovery' AND o1.`member_id` = #{memberId} AND
+		o1.`product_id` IN( SELECT p.subject_no FROM t_entry e JOIN t_order o
+		ON DATE( e.`create_time`)=DATE(#{date}) AND
+		e.`order_id`=o.`order_id`
+		JOIN t_payment p ON o.`order_id` =
+		p.`order_id` AND p.`action_type` =
+		'ACTION_PROVISION_REPAYMENT' AND
+		p.to_plat=#{chanId})
+	</select>
+</mapper>
